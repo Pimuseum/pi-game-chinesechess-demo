@@ -1,4 +1,4 @@
-#游戏开发之象棋  
+# 游戏开发之象棋  
 [**象棋(Chinese Chess)**](https://baike.baidu.com/item/%E8%B1%A1%E6%A3%8B/30665)
 
 ## 象棋的数学模型
@@ -33,5 +33,5 @@
 ###Tips 
 * 基本单击操作的象棋数据结构设计如此(整个过程因为集合是小于或等于32的，单次对数据做全遍历操作，在耗时上没有直观区别，但是程序可以通过对棋子对象的列，横向索引排序，对棋子对象的移动行为做可达性分析和优化，减少对数据的查询量，操作量，还有轨迹记录分析，不能走3遍旧棋，设计电脑Ai等)
 
-**Continue**... [Jiervs](https://github.com/Jiervs)
+**Continue Optimizing**... [Jiervs](https://github.com/Jiervs)
 

@@ -1,8 +1,7 @@
 package com.pimuseum.game.chinesechess.core.chessman
 
-import com.pimuseum.game.chinesechess.core.ChessType
-import com.pimuseum.game.chinesechess.core.Chessman
-import com.pimuseum.game.chinesechess.core.Position
+import com.pimuseum.game.chinesechess.core.support.ChessType
+import com.pimuseum.game.chinesechess.core.support.Position
 import com.pimuseum.game.chinesechess.core.tools.ChessmanTools
 
 /**
@@ -38,7 +37,9 @@ class XiangChessman(chessType: ChessType, position: Position) : Chessman(chessTy
         val centerColumn = (this@XiangChessman.position.column + nextPosition.column)/2
         val centerRow = (this@XiangChessman.position.row + nextPosition.row)/2
 
-        ChessmanTools.isExistChessmanByPosition(chessmanList, Position(centerRow,centerColumn))?.let { chessman->
+        ChessmanTools.isExistChessmanByPosition(chessmanList,
+            Position(centerRow, centerColumn)
+        )?.let { chessman->
             return false
         }
         return true

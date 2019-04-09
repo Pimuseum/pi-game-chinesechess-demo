@@ -1,4 +1,7 @@
-package com.pimuseum.game.chinesechess.core
+package com.pimuseum.game.chinesechess.core.chessman
+
+import com.pimuseum.game.chinesechess.core.support.ChessType
+import com.pimuseum.game.chinesechess.core.support.Position
 
 
 /**
@@ -21,7 +24,7 @@ abstract class Chessman(var chessType: ChessType, var position: Position) {
     /**
      * 与棋盘上产生的联动效应，即棋盘及其他棋子约束
      */
-    abstract fun chessboardRule(chessmanList : ArrayList<Chessman>,nextPosition: Position) : Boolean
+    abstract fun chessboardRule(chessmanList : ArrayList<Chessman>, nextPosition: Position) : Boolean
 
     /**
      * 棋子名

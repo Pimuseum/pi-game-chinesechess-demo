@@ -1,7 +1,7 @@
 package com.pimuseum.game.chinesechess.core.tools
 
-import com.pimuseum.game.chinesechess.core.Chessman
-import com.pimuseum.game.chinesechess.core.Position
+import com.pimuseum.game.chinesechess.core.chessman.Chessman
+import com.pimuseum.game.chinesechess.core.support.Position
 
 
 object ChessmanTools {
@@ -37,7 +37,7 @@ object ChessmanTools {
     /**
      * 根据 目标 postion 判断是否存在棋子,如果存在则返回该棋子
      */
-    fun isExistChessmanByPosition(chessmanList : ArrayList<Chessman>,position: Position) : Chessman? {
+    fun isExistChessmanByPosition(chessmanList : ArrayList<Chessman>, position: Position) : Chessman? {
 
         for (chessman in chessmanList) {
             if (chessman.position.column == position.column
@@ -52,7 +52,7 @@ object ChessmanTools {
     /**
      * 根据 两点连线间存在几个其他棋子
      */
-    fun chessNumberBetweenPositions(chessmanList : ArrayList<Chessman>,position1: Position,position2: Position) : Int {
+    fun chessNumberBetweenPositions(chessmanList : ArrayList<Chessman>, position1: Position, position2: Position) : Int {
 
         var count : Int = 0
 
