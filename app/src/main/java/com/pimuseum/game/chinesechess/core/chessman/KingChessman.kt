@@ -26,9 +26,9 @@ class KingChessman(chessType: ChessType, position: Position) : Chessman(chessTyp
         }
     }
 
-    override fun chessboardRule(chessmanList: ArrayList<Chessman>, nextPosition: Position): Boolean {
+    override fun chessboardRule(chessboardInfo: Array<Array<Chessman?>>, nextPosition: Position): Boolean {
 
-        ChessmanTools.isExistChessmanByPosition(chessmanList,nextPosition)?.let { chessman->
+        ChessmanTools.isExistChessmanByPosition(chessboardInfo,nextPosition)?.let { chessman->
             if (chessman.chessType == this@KingChessman.chessType) return false//同色棋子不能被吃
         }
         return true

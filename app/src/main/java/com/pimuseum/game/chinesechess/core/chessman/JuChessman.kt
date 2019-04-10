@@ -20,13 +20,13 @@ class JuChessman(chessType: ChessType, position: Position) : Chessman(chessType,
                 || (nextPosition.column != position.column && nextPosition.row == position.row))
     }
 
-    override fun chessboardRule(chessmanList: ArrayList<Chessman>, nextPosition: Position): Boolean {
+    override fun chessboardRule(chessboardInfo: Array<Array<Chessman?>>, nextPosition: Position): Boolean {
 
-        ChessmanTools.isExistChessmanByPosition(chessmanList,nextPosition)?.let { chessman->
+        ChessmanTools.isExistChessmanByPosition(chessboardInfo,nextPosition)?.let { chessman->
             if (chessman.chessType == this@JuChessman.chessType) return false//同色棋子不能被吃
         }
 
-        if (ChessmanTools.chessNumberBetweenPositions(chessmanList,this@JuChessman.position,nextPosition) > 0) {
+        if (ChessmanTools.chessNumberBetweenPositions(chessboardInfo,this@JuChessman.position,nextPosition) > 0) {
             //两棋子之间有其他棋子则不符合 车的走法
             return false
         }

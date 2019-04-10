@@ -32,10 +32,10 @@ object ChessHelper {
     /**
      * 提起棋子
      */
-    @Synchronized fun pickChessman(chessPosition : Position) {
+    fun pickChessman(chessPosition : Position) {
 
         ChessmanTools.isExistChessmanByPosition(
-            chessboard.getCurrentChessmanList(),chessPosition)?.let { chessman->
+            chessboard.queryChessboardInfo(),chessPosition)?.let { chessman->
             if (chessman.chessType == turnFlag) {
                 pickedChessman = chessman
                 operationStatus = OperationStatus.ChessPicked
@@ -46,7 +46,7 @@ object ChessHelper {
     /**
      * 取消提起棋子
      */
-    @Synchronized fun dropChessman() {
+    private fun dropChessman() {
         pickedChessman = null
         operationStatus = OperationStatus.ChessFreedom
     }
@@ -54,7 +54,7 @@ object ChessHelper {
     /**
      * 下棋
      */
-    @Synchronized fun moveChessman(nextPosition : Position) : Boolean {
+    fun moveChessman(nextPosition : Position) : Boolean {
 
         pickedChessman?.let { pickedChessman ->
 
@@ -63,18 +63,25 @@ object ChessHelper {
                 return@moveChessman false
             }
 
-            //检测是否符合下棋规则
+            //检测是否符合下棋规则,包括棋子约束和棋盘约束
             if (pickedChessman.chessmanRule(nextPosition)
-                && pickedChessman.chessboardRule(chessboard.getCurrentChessmanList(),nextPosition)) {
+                && pickedChessman.chessboardRule(chessboard.queryChessboardInfo(),nextPosition)) {
 
                 //删掉落点处棋子
                 ChessmanTools.isExistChessmanByPosition(
-                    chessboard.getCurrentChessmanList(),nextPosition)?.let { removeChessman->
-                    chessboard.removeChessman(removeChessman)
+                    chessboard.queryChessboardInfo(),nextPosition)?.let { removeChessman->
+                    chessboard.queryChessboardInfo()[removeChessman.position.row][removeChessman.position.column] = null
                 }
 
-                //下棋
-                pickedChessman.moveTo(nextPosition.column,nextPosition.row)
+                //下棋落子，逻辑步骤：
+
+                //被选择棋子原来坐标数组中的棋子对象的引用清空
+                chessboard.queryChessboardInfo()[pickedChessman.position.row][pickedChessman.position.column] = null
+                //更新被选择棋子的坐标信息
+                pickedChessman.updateChessmanPosition(nextPosition.row,nextPosition.column)
+                //新的落点处坐标数组中对应索引指向选择棋子对象
+                chessboard.queryChessboardInfo()[nextPosition.row][nextPosition.column] = pickedChessman
+
                 dropChessman()
 
                 //切换回合

@@ -18,16 +18,18 @@ class PaoChessman(chessType: ChessType, position: Position) : Chessman(chessType
                 || (nextPosition.column != position.column && nextPosition.row == position.row))
     }
 
-    override fun chessboardRule(chessmanList: ArrayList<Chessman>, nextPosition: Position): Boolean {
-        ChessmanTools.isExistChessmanByPosition(chessmanList,nextPosition)?.let { chessman->
+    override fun chessboardRule(chessboardInfo: Array<Array<Chessman?>>, nextPosition: Position): Boolean {
+
+        ChessmanTools.isExistChessmanByPosition(chessboardInfo,nextPosition)?.let { chessman->
             if (chessman.chessType == this@PaoChessman.chessType) return false//同色棋子不能被吃
 
             //落点存在对方棋子时候，需隔山打炮
-            return ChessmanTools.chessNumberBetweenPositions(chessmanList,this@PaoChessman.position,nextPosition) == 1
+            return ChessmanTools.chessNumberBetweenPositions(chessboardInfo,this@PaoChessman.position,nextPosition) == 1
         }
 
         //落点不存在对方棋子时候，炮行列皆行
-        return ChessmanTools.chessNumberBetweenPositions(chessmanList,this@PaoChessman.position,nextPosition) == 0
+        return ChessmanTools.chessNumberBetweenPositions(chessboardInfo,this@PaoChessman.position,nextPosition) == 0
+
     }
 
     override fun chessmanName(): String {

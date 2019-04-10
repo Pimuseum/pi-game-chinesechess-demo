@@ -27,9 +27,9 @@ class XiangChessman(chessType: ChessType, position: Position) : Chessman(chessTy
         }
     }
 
-    override fun chessboardRule(chessmanList: ArrayList<Chessman>, nextPosition: Position): Boolean {
+    override fun chessboardRule(chessboardInfo: Array<Array<Chessman?>>, nextPosition: Position): Boolean {
 
-        ChessmanTools.isExistChessmanByPosition(chessmanList,nextPosition)?.let { chessman->
+        ChessmanTools.isExistChessmanByPosition(chessboardInfo,nextPosition)?.let { chessman->
             if (chessman.chessType == this@XiangChessman.chessType) return false//同色棋子不能被吃
         }
 
@@ -37,9 +37,8 @@ class XiangChessman(chessType: ChessType, position: Position) : Chessman(chessTy
         val centerColumn = (this@XiangChessman.position.column + nextPosition.column)/2
         val centerRow = (this@XiangChessman.position.row + nextPosition.row)/2
 
-        ChessmanTools.isExistChessmanByPosition(chessmanList,
-            Position(centerRow, centerColumn)
-        )?.let { chessman->
+        ChessmanTools.isExistChessmanByPosition(chessboardInfo, Position(centerRow, centerColumn)
+        )?.let {
             return false
         }
         return true
