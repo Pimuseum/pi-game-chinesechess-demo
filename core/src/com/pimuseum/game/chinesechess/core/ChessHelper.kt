@@ -96,5 +96,6 @@ object ChessHelper {
 
             return false
         }
+        return false
     }
 }
