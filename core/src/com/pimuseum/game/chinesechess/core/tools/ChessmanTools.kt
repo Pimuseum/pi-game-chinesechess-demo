@@ -1,7 +1,7 @@
 package com.pimuseum.game.chinesechess.core.tools
 
 import com.pimuseum.game.chinesechess.core.chessman.Chessman
-import com.pimuseum.game.chinesechess.core.support.Position
+import com.pimuseum.game.chinesechess.core.companion.Position
 
 
 object ChessmanTools {

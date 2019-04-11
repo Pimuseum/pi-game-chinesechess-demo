@@ -18,12 +18,18 @@ android {
     }
     defaultConfig {
         applicationId "com.pimuseum.game.chinesechess"
-        minSdkVersion 9
+        minSdkVersion 21
         targetSdkVersion 28
-        versionCode 1
-        versionName "1.0"
+        versionCode 10000
+        versionName "1.0.0"
     }
     buildTypes {
+
+        debug {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
@@ -123,14 +129,14 @@ eclipse {
 // sets up the Android Idea project, using the old Ant based build.
 idea {
     module {
-        sourceDirs += file("src");
+        sourceDirs += file("src")
         scopes = [ COMPILE: [plus:[project.configurations.compile]]]        
 
         iml {
             withXml {
                 def node = it.asNode()
-                def builder = NodeBuilder.newInstance();
-                builder.current = node;
+                def builder = NodeBuilder.newInstance()
+                builder.current = node
                 builder.component(name: "FacetManager") {
                     facet(type: "android", name: "Android") {
                         configuration {

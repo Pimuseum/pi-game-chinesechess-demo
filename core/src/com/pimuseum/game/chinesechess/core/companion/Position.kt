@@ -1,4 +1,4 @@
-package com.pimuseum.game.chinesechess.core.support
+package com.pimuseum.game.chinesechess.core.companion
 
 /**
  * Desc : Position

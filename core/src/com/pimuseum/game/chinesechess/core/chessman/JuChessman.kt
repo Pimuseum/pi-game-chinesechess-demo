@@ -1,7 +1,7 @@
 package com.pimuseum.game.chinesechess.core.chessman
 
-import com.pimuseum.game.chinesechess.core.support.ChessType
-import com.pimuseum.game.chinesechess.core.support.Position
+import com.pimuseum.game.chinesechess.core.companion.ChessType
+import com.pimuseum.game.chinesechess.core.companion.Position
 import com.pimuseum.game.chinesechess.core.tools.ChessmanTools
 
 /**

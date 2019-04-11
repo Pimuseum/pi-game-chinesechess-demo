@@ -1,7 +1,7 @@
 package com.pimuseum.game.chinesechess.core.chessman
 
-import com.pimuseum.game.chinesechess.core.support.ChessType
-import com.pimuseum.game.chinesechess.core.support.Position
+import com.pimuseum.game.chinesechess.core.companion.ChessType
+import com.pimuseum.game.chinesechess.core.companion.Position
 import com.pimuseum.game.chinesechess.core.tools.ChessmanTools
 
 /**
@@ -27,12 +27,12 @@ class MaChessman(chessType: ChessType, position: Position) : Chessman(chessType,
         //先判断是行向蹩脚还是列向蹩脚
         if (Math.abs(nextPosition.row - position.row) == 2) {//行蹩脚
             val queryRow = (nextPosition.row + position.row)/2
-            ChessmanTools.isExistChessmanByPosition(chessboardInfo, Position(queryRow,position.column))?.let {
+            ChessmanTools.isExistChessmanByPosition(chessboardInfo, Position(queryRow, position.column))?.let {
                 return false
             }
         } else {//列蹩脚
             val queryColumn = (nextPosition.column + position.column)/2
-            ChessmanTools.isExistChessmanByPosition(chessboardInfo, Position(position.row,queryColumn))?.let {
+            ChessmanTools.isExistChessmanByPosition(chessboardInfo, Position(position.row, queryColumn))?.let {
                 return false
             }
         }
