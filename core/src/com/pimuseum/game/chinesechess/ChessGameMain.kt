@@ -11,5 +11,7 @@ class ChessGameMain : Game() {
     override fun create() {
 
         setScreen(PlayScreen())
+
     }
+
 }
