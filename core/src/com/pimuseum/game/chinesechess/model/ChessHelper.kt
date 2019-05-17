@@ -122,7 +122,7 @@ object ChessHelper {
         for(row in 1..RowCapacity) {
             for (column in 1..ColumnCapacity) {
                 Gdx.app.log("ChessLog", "row: $row * column:$column")
-                //chessboardInfo[row][column] = null
+                chessboardInfo[row][column] = null
             }
         }
 
