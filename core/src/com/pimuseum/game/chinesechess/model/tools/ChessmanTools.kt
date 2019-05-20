@@ -73,7 +73,7 @@ object ChessmanTools {
      */
     fun queryResPathByChessman(chessman : Chessman) : String? {
 
-        return if (chessman.chessType == ChessType.Red) {//Red Chessman
+        return if (chessman.chessType == ChessType.Red) { //Red Chessman
 
             when(chessman.javaClass) {
                 JuChessman::class.java -> "actor/chessman_rj.png"
@@ -86,7 +86,7 @@ object ChessmanTools {
                 else -> null
             }
         } else {
-            when(chessman.javaClass) {//Black Chessman
+            when(chessman.javaClass) { //Black Chessman
                 JuChessman::class.java -> "actor/chessman_bj.png"
                 MaChessman::class.java -> "actor/chessman_bm.png"
                 XiangChessman::class.java -> "actor/chessman_bx.png"

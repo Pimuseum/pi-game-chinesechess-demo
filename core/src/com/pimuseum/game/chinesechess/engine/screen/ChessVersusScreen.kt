@@ -3,6 +3,7 @@ package com.pimuseum.game.chinesechess.engine.screen
 import com.badlogic.gdx.Gdx
 import com.badlogic.gdx.ScreenAdapter
 import com.badlogic.gdx.utils.viewport.StretchViewport
+import com.pimuseum.game.chinesechess.engine.constant.Res
 import com.pimuseum.game.chinesechess.engine.game.ChessVersusGame
 import com.pimuseum.game.chinesechess.engine.stage.ChessVersusStage
 
@@ -20,7 +21,7 @@ class ChessVersusScreen(private var game : ChessVersusGame ) : ScreenAdapter() {
     init {
         // link input to stage
         Gdx.input.inputProcessor = stage
-        Gdx.app.log("ChessLog", "World Size: ${game.gameWidth} * ${game.gameHeight}")
+        Gdx.app.log(Res.TAG, "World Size: ${game.gameWidth} * ${game.gameHeight}")
     }
 
     override fun render(delta: Float) {

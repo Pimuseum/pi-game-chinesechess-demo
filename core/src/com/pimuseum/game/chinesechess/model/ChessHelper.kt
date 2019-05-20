@@ -2,6 +2,7 @@ package com.pimuseum.game.chinesechess.model
 
 import com.badlogic.gdx.Gdx
 import com.pimuseum.game.chinesechess.core.chessman.*
+import com.pimuseum.game.chinesechess.engine.constant.Res
 import com.pimuseum.game.chinesechess.model.chessman.*
 import com.pimuseum.game.chinesechess.model.chessman.Chessman
 import com.pimuseum.game.chinesechess.model.chessman.JuChessman
@@ -115,13 +116,15 @@ object ChessHelper {
         return false
     }
 
-    //载入棋子
+    /**
+     * 载入棋子
+     */
     fun loadChessman() {
 
         //清空棋盘坐标上的棋子
         for(row in 1..RowCapacity) {
             for (column in 1..ColumnCapacity) {
-                Gdx.app.log("ChessLog", "row: $row * column:$column")
+                Gdx.app.log(Res.TAG, "row: $row * column:$column")
                 chessboardInfo[row][column] = null
             }
         }

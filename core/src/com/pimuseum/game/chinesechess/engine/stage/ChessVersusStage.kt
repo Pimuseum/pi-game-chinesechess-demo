@@ -10,6 +10,7 @@ import com.pimuseum.game.chinesechess.model.ChessHelper
 import com.pimuseum.game.chinesechess.model.tools.ChessmanTools
 import com.pimuseum.game.chinesechess.engine.actor.ChessBoardActor
 import com.pimuseum.game.chinesechess.engine.actor.ChessmanActor
+import com.pimuseum.game.chinesechess.engine.constant.Res
 
 /**
  * Desc : ChessVersusStage
@@ -99,7 +100,7 @@ class ChessVersusStage( viewport: Viewport) : Stage(viewport) {
                         chessmanActor.setCenter(originLocationX + (chessman.position.column * chessboardUnitWidth),
                                 originLocationY + (chessman.position.row * chessboardUnitHeight))
 
-                        Gdx.app.log("ChessLog1", "${chessman.javaClass.simpleName}: ${chessman.position.row} *" +
+                        Gdx.app.log(Res.TAG, "${chessman.javaClass.simpleName}: ${chessman.position.row} *" +
                                 " ${chessman.position.column}")
 
                         addActor(chessmanActor)
