@@ -1,7 +1,6 @@
 package com.pimuseum.game.chinesechess.model
 
 import com.badlogic.gdx.Gdx
-import com.pimuseum.game.chinesechess.core.chessman.*
 import com.pimuseum.game.chinesechess.engine.constant.Res
 import com.pimuseum.game.chinesechess.model.chessman.*
 import com.pimuseum.game.chinesechess.model.chessman.Chessman
@@ -12,6 +11,7 @@ import com.pimuseum.game.chinesechess.model.chessman.PaoChessman
 import com.pimuseum.game.chinesechess.model.chessman.ShiChessman
 import com.pimuseum.game.chinesechess.model.chessman.XiangChessman
 import com.pimuseum.game.chinesechess.model.companion.ChessType
+import com.pimuseum.game.chinesechess.model.companion.MoveResult
 import com.pimuseum.game.chinesechess.model.companion.OperationStatus
 import com.pimuseum.game.chinesechess.model.companion.Position
 import com.pimuseum.game.chinesechess.model.tools.ChessmanTools
@@ -49,35 +49,47 @@ object ChessHelper {
     /**
      * 提起棋子
      */
-    fun pickChessman(chessPosition : Position) {
+    fun pickChessman(chessPosition : Position) : Boolean{
 
         ChessmanTools.isExistChessmanByPosition(
                 queryChessboardInfo(),chessPosition)?.let { chessman->
             if (chessman.chessType == turnFlag) {
                 pickedChessman = chessman
                 operationStatus = OperationStatus.ChessPicked
+                return true
             }
         }
+        return false
     }
 
     /**
      * 取消提起棋子
      */
-    private fun dropChessman() {
+    fun dropChessman() {
         pickedChessman = null
         operationStatus = OperationStatus.ChessFreedom
     }
 
     /**
-     * 下棋
+     * 查询当前 picked 棋子
      */
-    fun moveChessman(nextPosition : Position) : Boolean {
+    fun queryPickedChessman() : Chessman? {
+        return if (operationStatus == OperationStatus.ChessPicked) {
+            pickedChessman
+        } else {
+            null
+        }
+    }
+
+    /**
+     * 落子下棋
+     */
+    fun moveChessman(nextPosition : Position) : MoveResult {
 
         pickedChessman?.let { pickedChessman ->
 
             if (pickedChessman.position.column == nextPosition.column && pickedChessman.position.row == nextPosition.row) {
-                dropChessman()
-                return@moveChessman false
+                return@moveChessman MoveResult.DesIsSelf
             }
 
             //检测是否符合下棋规则,包括棋子约束和棋盘约束
@@ -99,8 +111,6 @@ object ChessHelper {
                 //新的落点处坐标数组中对应索引指向选择棋子对象
                 queryChessboardInfo()[nextPosition.row][nextPosition.column] = pickedChessman
 
-                dropChessman()
-
                 //切换回合
                 turnFlag = if (turnFlag == ChessType.Red) {
                     ChessType.Black
@@ -108,12 +118,21 @@ object ChessHelper {
                     ChessType.Red
                 }
 
-                return true
+                return@moveChessman MoveResult.Success
             }
-
-            return false
+            return@moveChessman MoveResult.UnSupportChessRule
         }
-        return false
+        return@moveChessman MoveResult.NoPickedChessMan
+    }
+
+    /**
+     * 根据Position 判断棋子是否存在
+     */
+    fun isExistChessmanByPosition(position: Position) : Chessman? {
+        chessboardInfo[position.row][position.column]?.let { chessman ->
+            return chessman
+        }
+        return null
     }
 
     /**
@@ -124,7 +143,7 @@ object ChessHelper {
         //清空棋盘坐标上的棋子
         for(row in 1..RowCapacity) {
             for (column in 1..ColumnCapacity) {
-                Gdx.app.log(Res.TAG, "row: $row * column:$column")
+                Gdx.app.log(Res.ChessLog, "row: $row * column:$column")
                 chessboardInfo[row][column] = null
             }
         }

@@ -2,7 +2,6 @@ package com.pimuseum.game.chinesechess.engine.game
 
 import com.badlogic.gdx.Game
 import com.badlogic.gdx.Gdx
-import com.badlogic.gdx.graphics.GL20
 import com.pimuseum.game.chinesechess.engine.constant.Res
 import com.pimuseum.game.chinesechess.engine.screen.ChessVersusScreen
 
@@ -24,17 +23,11 @@ class ChessVersusGame : Game() {
         gameWidth = 480F
         gameHeight = Gdx.graphics.height * gameWidth / Gdx.graphics.width
 
-        Gdx.app.log(Res.TAG, "World Size: $gameWidth * $gameHeight")
+        Gdx.app.log(Res.ChessLog, "World Size: $gameWidth * $gameHeight")
 
         //create screen
         chessVersusScreen = ChessVersusScreen(this)
         //set screen
         setScreen(chessVersusScreen)
-    }
-
-    override fun render() {
-        Gdx.gl.glClearColor(255f, 255f, 255f, 1f)
-        Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT)
-        super.render()
     }
 }

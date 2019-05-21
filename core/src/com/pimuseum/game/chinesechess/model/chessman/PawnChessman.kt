@@ -16,13 +16,20 @@ class PawnChessman(chessType: ChessType, position: Position) : Chessman(chessTyp
         //兵卒移动距离为1
        if ((Math.abs(nextPosition.column - position.column) + Math.abs(nextPosition.row - position.row)) != 1) return false
 
+        //兵卒只能向前走和平移,过河以前不能横向移动
+
         return if (chessType == ChessType.Red) {//红棋子
-            //兵卒只能向前走和平移
-            nextPosition.row >= position.row
-
+            if (position.row <= 5) {
+                nextPosition.row >= position.row && nextPosition.column == position.column
+            } else {
+                nextPosition.row >= position.row
+            }
         } else {//黑棋子
-
-            nextPosition.row <= position.row
+            if (position.row >= 6) {
+                nextPosition.row <= position.row && nextPosition.column == position.column
+            } else {
+                nextPosition.row <= position.row
+            }
         }
     }
 

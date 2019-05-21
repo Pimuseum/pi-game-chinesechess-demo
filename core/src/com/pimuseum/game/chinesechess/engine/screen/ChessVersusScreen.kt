@@ -21,7 +21,7 @@ class ChessVersusScreen(private var game : ChessVersusGame ) : ScreenAdapter() {
     init {
         // link input to stage
         Gdx.input.inputProcessor = stage
-        Gdx.app.log(Res.TAG, "World Size: ${game.gameWidth} * ${game.gameHeight}")
+        Gdx.app.log(Res.ChessLog, "World Size: ${game.gameWidth} * ${game.gameHeight}")
     }
 
     override fun render(delta: Float) {
