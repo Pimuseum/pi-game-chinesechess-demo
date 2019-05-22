@@ -12,7 +12,7 @@ import com.badlogic.gdx.scenes.scene2d.Actor
  */
 open class ImageActor : Actor {
 
-    var region: TextureRegion? = null
+    var region : TextureRegion? = null
 
     constructor() : super()
 
@@ -70,7 +70,6 @@ open class ImageActor : Actor {
         setCenterX(centerX)
         setCenterY(centerY)
     }
-
 
     fun setCenterX(centerX: Float) {
         x = centerX - width / 2.0f

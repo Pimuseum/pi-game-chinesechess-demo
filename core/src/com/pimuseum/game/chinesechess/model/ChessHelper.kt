@@ -1,7 +1,7 @@
 package com.pimuseum.game.chinesechess.model
 
 import com.badlogic.gdx.Gdx
-import com.pimuseum.game.chinesechess.engine.constant.Res
+import com.pimuseum.game.chinesechess.engine.constant.LogTag
 import com.pimuseum.game.chinesechess.model.chessman.*
 import com.pimuseum.game.chinesechess.model.chessman.Chessman
 import com.pimuseum.game.chinesechess.model.chessman.JuChessman
@@ -63,7 +63,7 @@ object ChessHelper {
     }
 
     /**
-     * 取消提起棋子
+     * 放下棋子
      */
     fun dropChessman() {
         pickedChessman = null
@@ -143,7 +143,7 @@ object ChessHelper {
         //清空棋盘坐标上的棋子
         for(row in 1..RowCapacity) {
             for (column in 1..ColumnCapacity) {
-                Gdx.app.log(Res.ChessLog, "row: $row * column:$column")
+                Gdx.app.log(LogTag.ChessLog, "row: $row * column:$column")
                 chessboardInfo[row][column] = null
             }
         }
