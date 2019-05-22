@@ -14,7 +14,7 @@ import com.pimuseum.game.chinesechess.model.companion.ChessType
 import com.pimuseum.game.chinesechess.model.companion.MoveResult
 import com.pimuseum.game.chinesechess.model.companion.OperationStatus
 import com.pimuseum.game.chinesechess.model.companion.Position
-import com.pimuseum.game.chinesechess.model.tools.ChessmanTools
+import com.pimuseum.game.chinesechess.model.tools.ChessTools
 
 
 /**
@@ -51,7 +51,7 @@ object ChessHelper {
      */
     fun pickChessman(chessPosition : Position) : Boolean{
 
-        ChessmanTools.isExistChessmanByPosition(
+        ChessTools.isExistChessmanByPosition(
                 queryChessboardInfo(),chessPosition)?.let { chessman->
             if (chessman.chessType == turnFlag) {
                 pickedChessman = chessman
@@ -97,7 +97,7 @@ object ChessHelper {
                 && pickedChessman.chessboardRule(queryChessboardInfo(),nextPosition)) {
 
                 //删掉落点处棋子
-                ChessmanTools.isExistChessmanByPosition(
+                ChessTools.isExistChessmanByPosition(
                         queryChessboardInfo(),nextPosition)?.let { removeChessman->
                     queryChessboardInfo()[removeChessman.position.row][removeChessman.position.column] = null
                 }

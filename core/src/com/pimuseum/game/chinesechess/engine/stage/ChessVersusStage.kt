@@ -10,7 +10,7 @@ import com.badlogic.gdx.audio.Sound
 import com.badlogic.gdx.graphics.Texture
 import com.badlogic.gdx.math.Vector2
 import com.pimuseum.game.chinesechess.model.ChessHelper
-import com.pimuseum.game.chinesechess.model.tools.ChessmanTools
+import com.pimuseum.game.chinesechess.model.tools.ChessTools
 import com.pimuseum.game.chinesechess.engine.actor.ChessBoardActor
 import com.pimuseum.game.chinesechess.engine.actor.ChessmanActor
 import com.pimuseum.game.chinesechess.engine.constant.LogTag
@@ -104,7 +104,7 @@ class ChessVersusStage(viewport: Viewport) : Stage(viewport) {
         val originTexture = Texture(Gdx.files.internal("actor/origin_des_trace.png"))
         oriActor = ImageActor(TextureRegion(originTexture))
         oriActor.setSize(chessboardUnitWidth,chessboardUnitWidth)
-        oriActor.setCenter(2* width , 2 * height) //初始化时候先放在 Stage 外面
+        oriActor.setCenter(2 * width , 2 * height) //初始化时候先放在 Stage 外面
         oriActor.isVisible = false
         addActor(oriActor)
 
@@ -112,12 +112,21 @@ class ChessVersusStage(viewport: Viewport) : Stage(viewport) {
         val desTexture = Texture(Gdx.files.internal("actor/origin_des_trace.png"))
         desActor = ImageActor(TextureRegion(desTexture))
         desActor.setSize(chessboardUnitWidth,chessboardUnitWidth)
-        desActor.setCenter(2* width , 2 * height) //初始化时候先放在 Stage 外面
+        desActor.setCenter(2 * width , 2 * height) //初始化时候先放在 Stage 外面
         desActor.isVisible = false
         addActor(desActor)
 
         //create chessmen actors
         initChessmanActors()
+
+        //create sound
+        pickSound = Gdx.audio.newSound(Gdx.files.internal("sound/pick.mp3"))
+        dropSound = Gdx.audio.newSound(Gdx.files.internal("sound/drop.mp3"))
+
+        //create bgm
+//      bgm = Gdx.audio.newMusic(Gdx.files.internal("sound/bgm.mp3"))
+//      bgm.volume /= 4
+//      bgm.play()
     }
 
     /**
@@ -133,7 +142,7 @@ class ChessVersusStage(viewport: Viewport) : Stage(viewport) {
                 chessboardInfo[row][column]?.let { chessman ->
                     //create chessman actor
 
-                    ChessmanTools.queryResPathByNormalChessman(chessman)?.let { resPath->
+                    ChessTools.queryResPathByNormalChessman(chessman)?.let { resPath->
 
                         val chessmanTexture = Texture(Gdx.files.internal(resPath))
                         val chessmanActor = ChessmanActor(TextureRegion(chessmanTexture),chessman)
@@ -150,6 +159,16 @@ class ChessVersusStage(viewport: Viewport) : Stage(viewport) {
                 }
             }
         }
+    }
+
+    /**
+     * 释放资源
+     */
+    override fun dispose() {
+        super.dispose()
+        pickSound.dispose()
+        dropSound.dispose()
+        bgm.dispose()
     }
 
     /**
@@ -190,12 +209,14 @@ class ChessVersusStage(viewport: Viewport) : Stage(viewport) {
                         //pick 棋子 ，actor 纹理改变成 picked 状态
                         if (ChessHelper.pickChessman(position)) {
 
+                            pickSound.play()
+
                             //隐藏上一步下棋轨迹
                             oriActor.isVisible = false
                             desActor.isVisible = false
 
                             EngineTools.replaceActorTexture(chessmanActors[position.row][position.column],
-                                    ChessmanTools.queryResPathByPickedChessman(chessman))
+                                    ChessTools.queryResPathByPickedChessman(chessman))
 
                             chessmanActors[position.row][position.column]?.setSize(chessboardUnitWidth,chessboardUnitWidth)
                         }
@@ -230,7 +251,7 @@ class ChessVersusStage(viewport: Viewport) : Stage(viewport) {
 
                         //actor 纹理改变成 freedom 状态,drop 棋子
                         EngineTools.replaceActorTexture(chessmanActors[position.row][position.column],
-                                ChessmanTools.queryResPathByNormalChessman(chessmanActors[position.row][position.column]?.chessman))
+                                ChessTools.queryResPathByNormalChessman(chessmanActors[position.row][position.column]?.chessman))
 
                         chessmanActors[position.row][position.column]?.setSize(chessmanSize,chessmanSize)
                         chessmanActors[position.row][position.column]?.setCenter(
@@ -247,14 +268,15 @@ class ChessVersusStage(viewport: Viewport) : Stage(viewport) {
                                 originLocationY + (position.row * chessboardUnitHeight))
 
                         ChessHelper.dropChessman()
+                        dropSound.play()
                         Gdx.app.log(LogTag.OPLog, "SuccessFinish")
                 }
 
-                    MoveResult.DesIsSelf -> {//如果 des 棋子就是 picked 棋子，则 drop 棋子
+                    MoveResult.DesIsSelf -> {// 如果 des 棋子就是 picked 棋子，则 drop 棋子
 
                         //actor 纹理改变成 freedom 状态,drop 棋子
                         EngineTools.replaceActorTexture(chessmanActors[position.row][position.column],
-                                ChessmanTools.queryResPathByNormalChessman(chessmanActors[position.row][position.column]?.chessman))
+                                ChessTools.queryResPathByNormalChessman(chessmanActors[position.row][position.column]?.chessman))
 
                         chessmanActors[position.row][position.column]?.setSize(chessmanSize,chessmanSize)
 
@@ -263,6 +285,7 @@ class ChessVersusStage(viewport: Viewport) : Stage(viewport) {
                         desActor.isVisible = true
 
                         ChessHelper.dropChessman()
+                        dropSound.play()
                         Gdx.app.log(LogTag.OPLog, "DesIsSelfFinish")
                     }
 
@@ -274,9 +297,7 @@ class ChessVersusStage(viewport: Viewport) : Stage(viewport) {
 
                     }
                 }
-
             }
         }
     }
-
 }

@@ -5,7 +5,7 @@ import com.pimuseum.game.chinesechess.model.companion.ChessType
 import com.pimuseum.game.chinesechess.model.companion.Position
 
 
-object ChessmanTools {
+object ChessTools {
 
     /**
      * 根据 目标 position 判断是否存在棋子,如果存在则返回该棋子
@@ -59,6 +59,10 @@ object ChessmanTools {
 
         return count
     }
+
+    /**
+     * 输赢判别
+     */
 
     /**
      * 根据具体棋子 Class 和 Type 查询 Normal 状态下加载的资源路径
@@ -129,4 +133,6 @@ object ChessmanTools {
         }
         return null
     }
+
+
 }
