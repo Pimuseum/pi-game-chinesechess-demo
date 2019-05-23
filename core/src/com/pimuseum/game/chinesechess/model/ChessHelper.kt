@@ -10,10 +10,7 @@ import com.pimuseum.game.chinesechess.model.chessman.MaChessman
 import com.pimuseum.game.chinesechess.model.chessman.PaoChessman
 import com.pimuseum.game.chinesechess.model.chessman.ShiChessman
 import com.pimuseum.game.chinesechess.model.chessman.XiangChessman
-import com.pimuseum.game.chinesechess.model.companion.ChessType
-import com.pimuseum.game.chinesechess.model.companion.MoveResult
-import com.pimuseum.game.chinesechess.model.companion.OperationStatus
-import com.pimuseum.game.chinesechess.model.companion.Position
+import com.pimuseum.game.chinesechess.model.companion.*
 import com.pimuseum.game.chinesechess.model.tools.ChessTools
 
 
@@ -24,18 +21,16 @@ import com.pimuseum.game.chinesechess.model.tools.ChessTools
  */
 object ChessHelper {
 
-    //十行九列一共90个坐标点
-    const val ColumnCapacity : Int = 9
-    const val RowCapacity : Int = 10
+    //十行九列一共90个坐标点 ，这里为 10 * 11 表示 左下角的第一个点并非从 (0,0) 开始，而是从(1,1) 开始
+    const val ColumnCapacity : Int = 10
+    const val RowCapacity : Int = 11
 
     //棋盘上的二维坐标集信息,对应的索引取值是空值或者是棋子对象
     private var chessboardInfo : Array<Array<Chessman?>>
-            = Array(RowCapacity + 1){Array<Chessman?>(ColumnCapacity + 1) { null } }
+            = Array(RowCapacity ){Array<Chessman?>(ColumnCapacity) { null } }
 
-    //获取当前棋盘坐标集信息
-    fun queryChessboardInfo() : Array<Array<Chessman?>> {
-        return chessboardInfo
-    }
+    //己方视角下操作者 Type
+    private var myRoleType = ChessType.Red
 
     //当前哪方回合
     private var turnFlag = ChessType.Red
@@ -45,6 +40,21 @@ object ChessHelper {
 
     //当前操作状态
     var operationStatus : OperationStatus = OperationStatus.ChessFreedom
+
+    //棋盘操作监听
+    var observer : OperateObserver? = null
+
+    //获取当前棋盘坐标集信息
+    fun queryChessboardInfo() : Array<Array<Chessman?>> {
+        return chessboardInfo
+    }
+
+    /**
+     * 设置己方视角操作者 Type
+     */
+    fun setMyRoleType(type : ChessType) {
+        this.myRoleType = type
+    }
 
     /**
      * 提起棋子
@@ -82,13 +92,14 @@ object ChessHelper {
     }
 
     /**
-     * 落子下棋
+     * 下棋落子
      */
     fun moveChessman(nextPosition : Position) : MoveResult {
 
         pickedChessman?.let { pickedChessman ->
 
             if (pickedChessman.position.column == nextPosition.column && pickedChessman.position.row == nextPosition.row) {
+                observer?.onDropBack(pickedChessman)
                 return@moveChessman MoveResult.DesIsSelf
             }
 
@@ -97,32 +108,34 @@ object ChessHelper {
                 && pickedChessman.chessboardRule(queryChessboardInfo(),nextPosition)) {
 
                 //删掉落点处棋子
-                ChessTools.isExistChessmanByPosition(
-                        queryChessboardInfo(),nextPosition)?.let { removeChessman->
+                ChessTools.isExistChessmanByPosition(queryChessboardInfo(),nextPosition)?.let { removeChessman->
                     queryChessboardInfo()[removeChessman.position.row][removeChessman.position.column] = null
+                    observer?.onRemoveChess(removeChessman)
+                    if (removeChessman is KingChessman) return@moveChessman MoveResult.GameOver
                 }
 
-                //下棋落子，逻辑步骤：
-
-                //被选择棋子原来坐标数组中的棋子对象的引用清空
+                /**
+                 * 主要逻辑步骤：
+                 */
+                //置空旧坐标对 picked chess的引用
                 queryChessboardInfo()[pickedChessman.position.row][pickedChessman.position.column] = null
+                observer?.onMoveChess(pickedChessman.position.row,pickedChessman.position.column)
+
                 //更新被选择棋子的坐标信息
                 pickedChessman.updateChessmanPosition(nextPosition.row,nextPosition.column)
+
                 //新的落点处坐标数组中对应索引指向选择棋子对象
                 queryChessboardInfo()[nextPosition.row][nextPosition.column] = pickedChessman
 
                 //切换回合
-                turnFlag = if (turnFlag == ChessType.Red) {
-                    ChessType.Black
-                } else {
-                    ChessType.Red
-                }
+                turnFlag = if (turnFlag == ChessType.Red) ChessType.Black
+                            else ChessType.Red
 
                 return@moveChessman MoveResult.Success
             }
             return@moveChessman MoveResult.UnSupportChessRule
         }
-        return@moveChessman MoveResult.NoPickedChessMan
+        return MoveResult.NoPickedChessMan
     }
 
     /**
@@ -140,10 +153,12 @@ object ChessHelper {
      */
     fun loadChessman() {
 
+        dropChessman()
+        turnFlag = ChessType.Red
+
         //清空棋盘坐标上的棋子
-        for(row in 1..RowCapacity) {
-            for (column in 1..ColumnCapacity) {
-                Gdx.app.log(LogTag.ChessLog, "row: $row * column:$column")
+        for(row in 1 until RowCapacity) {
+            for (column in 1 until ColumnCapacity) {
                 chessboardInfo[row][column] = null
             }
         }

@@ -1,5 +1,6 @@
 package com.pimuseum.game.chinesechess.model.tools
 
+import com.pimuseum.game.chinesechess.model.ChessHelper
 import com.pimuseum.game.chinesechess.model.chessman.*
 import com.pimuseum.game.chinesechess.model.companion.ChessType
 import com.pimuseum.game.chinesechess.model.companion.Position
@@ -59,10 +60,6 @@ object ChessTools {
 
         return count
     }
-
-    /**
-     * 输赢判别
-     */
 
     /**
      * 根据具体棋子 Class 和 Type 查询 Normal 状态下加载的资源路径
