@@ -10,6 +10,7 @@ import com.pimuseum.game.chinesechess.model.chessman.ShiChessman
 import com.pimuseum.game.chinesechess.model.chessman.XiangChessman
 import com.pimuseum.game.chinesechess.model.companion.*
 import com.pimuseum.game.chinesechess.model.tools.ChessTools
+import com.pimuseum.game.chinesechess.model.observer.OperateObserver
 
 /**
  * Desc : ChessHelper

@@ -2,5 +2,7 @@
 <resources>
 
     <string name="app_name">Pi-ChineseChess</string>
+    <string name="self_practice">Self Practice</string>
+    <string name="ai_versus">Ai Versus</string>
 
 </resources>

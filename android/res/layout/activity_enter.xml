@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/activity_enter_bg"
+    android:gravity="center_horizontal">
+
+    <ImageView
+        android:id="@+id/ivTitle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:src="@drawable/chinese_chess_title"
+        android:layout_marginTop="80dp"/>
+
+    <TextView
+        android:id="@+id/tvSelfPractice"
+        android:layout_width="200dp"
+        android:layout_height="60dp"
+        android:textColor="#000000"
+        android:text="@string/self_practice"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        android:background="@drawable/btn_bg"
+        android:gravity="center"
+        android:layout_marginTop="40dp"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@id/ivTitle"/>
+
+    <TextView
+        android:id="@+id/tvAiVersus"
+        android:layout_width="200dp"
+        android:layout_height="60dp"
+        android:textColor="#000000"
+        android:text="@string/ai_versus"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        android:background="@drawable/btn_bg"
+        android:gravity="center"
+        android:layout_marginTop="15dp"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@id/tvSelfPractice"/>
+
+    <TextView
+        android:id="@+id/tvCopyright"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="bottom"
+        android:text="Copyright@PiMuseum"
+        android:textColor="#000000"
+        android:textSize="11sp"
+        android:layout_centerHorizontal="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="20dp"/>
+
+</RelativeLayout>

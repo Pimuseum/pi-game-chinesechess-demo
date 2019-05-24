@@ -10,7 +10,7 @@ import com.pimuseum.game.chinesechess.engine.game.ChessVersusGame;
 import com.pimuseum.game.chinesechess.model.ChessHelper;
 import com.pimuseum.game.chinesechess.model.companion.ChessType;
 
-public class AndroidLauncher extends AndroidApplication {
+public class ChessVersusActivity extends AndroidApplication {
 	@Override
 	protected void onCreate (Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);

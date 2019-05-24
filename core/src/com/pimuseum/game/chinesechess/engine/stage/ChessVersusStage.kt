@@ -18,13 +18,14 @@ import com.pimuseum.game.chinesechess.engine.tools.EngineTools
 import com.pimuseum.game.chinesechess.model.chessman.Chessman
 import com.pimuseum.game.chinesechess.model.chessman.KingChessman
 import com.pimuseum.game.chinesechess.model.companion.*
+import com.pimuseum.game.chinesechess.model.observer.OperateObserver
 
 /**
  * Desc : ChessVersusStage
  * Author : Jiervs
  * Date : 2019/5/16
  */
-class ChessVersusStage(viewport: Viewport) : Stage(viewport) ,OperateObserver{
+class ChessVersusStage(viewport: Viewport) : Stage(viewport) , OperateObserver {
 
     private var chessboardWidth : Float = 0F
     private var chessboardHeight : Float = 0F
@@ -84,6 +85,7 @@ class ChessVersusStage(viewport: Viewport) : Stage(viewport) ,OperateObserver{
         ChessHelper.observer = this
 
         initActors()
+
     }
 
     /**
@@ -91,7 +93,7 @@ class ChessVersusStage(viewport: Viewport) : Stage(viewport) ,OperateObserver{
      */
     private fun initActors(){
         //create background actor
-        val bgTexture = Texture(Gdx.files.internal("actor/bg.png"))
+        val bgTexture = Texture(Gdx.files.internal("actor/chess_versus_game_bg.png"))
         bgActor = ImageActor(TextureRegion(bgTexture))
         bgActor.setCenter(width / 2, height / 2)
         addActor(bgActor)

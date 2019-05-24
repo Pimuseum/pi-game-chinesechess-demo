@@ -1,4 +1,4 @@
-package com.pimuseum.game.chinesechess.model.companion
+package com.pimuseum.game.chinesechess.model.observer
 
 import com.pimuseum.game.chinesechess.model.chessman.Chessman
 
@@ -20,7 +20,7 @@ interface OperateObserver {
     fun onMoveChessman(row : Int, column : Int)
 
     /**
-     * 根据第一视角载入棋子
+     * 载入棋子
      */
     fun onLoadChessmen()
 }

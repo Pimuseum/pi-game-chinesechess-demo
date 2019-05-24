@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="app_name">π-棋魂</string>
+    <string name="app_name">π-中国象棋</string>
+    <string name="self_practice">练习模式</string>
+    <string name="ai_versus">人机对战</string>
 
 </resources>
