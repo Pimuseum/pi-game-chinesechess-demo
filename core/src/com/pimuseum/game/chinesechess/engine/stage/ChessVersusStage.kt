@@ -44,8 +44,8 @@ class ChessVersusStage(viewport: Viewport) : Stage(viewport) ,OperateObserver{
      * Actors
      */
     private lateinit var bgActor : ImageActor
-    private lateinit var oriActor : ImageActor
-    private lateinit var desActor : ImageActor
+    private lateinit var oriActor : ChessmanActor
+    private lateinit var desActor : ChessmanActor
     private lateinit var chessboardActor : ChessBoardActor
     private var chessmanActors : Array<Array<ChessmanActor?>>
             = Array(ChessHelper.RowCapacity + 1){Array<ChessmanActor?>(ChessHelper.ColumnCapacity + 1) { null}}
@@ -105,7 +105,7 @@ class ChessVersusStage(viewport: Viewport) : Stage(viewport) ,OperateObserver{
 
         //create origin actor
         val originTexture = Texture(Gdx.files.internal("actor/origin_des_trace.png"))
-        oriActor = ImageActor(TextureRegion(originTexture))
+        oriActor = ChessmanActor(TextureRegion(originTexture))
         oriActor.setSize(chessboardUnitWidth,chessboardUnitWidth)
         oriActor.setCenter(2 * width , 2 * height) //初始化时候先放在 Stage 外面
         oriActor.isVisible = false
@@ -113,55 +113,23 @@ class ChessVersusStage(viewport: Viewport) : Stage(viewport) ,OperateObserver{
 
         //create destination actor
         val desTexture = Texture(Gdx.files.internal("actor/origin_des_trace.png"))
-        desActor = ImageActor(TextureRegion(desTexture))
+        desActor = ChessmanActor(TextureRegion(desTexture))
         desActor.setSize(chessboardUnitWidth,chessboardUnitWidth)
         desActor.setCenter(2 * width , 2 * height) //初始化时候先放在 Stage 外面
         desActor.isVisible = false
         addActor(desActor)
 
-        //create chessmen actors
-        initChessmanActors()
-
         //create sound
         pickSound = Gdx.audio.newSound(Gdx.files.internal("sound/pick.mp3"))
         dropSound = Gdx.audio.newSound(Gdx.files.internal("sound/drop.mp3"))
+
+        //load chessmen
+        ChessHelper.loadChessmen()
 
         //create bgm
 //      bgm = Gdx.audio.newMusic(Gdx.files.internal("sound/bgm.mp3"))
 //      bgm.volume /= 4
 //      bgm.play()
-    }
-
-    /**
-     * Create Chessman Actors
-     */
-    private fun initChessmanActors() {
-        ChessHelper.loadChessman()
-        val chessboardInfo = ChessHelper.queryChessboardInfo()
-
-        for(row in 1 until ChessHelper.RowCapacity) {
-            for (column in 1 until ChessHelper.ColumnCapacity) {
-
-                chessboardInfo[row][column]?.let { chessman ->
-                    //create chessman actor
-
-                    ChessTools.queryResPathByNormalChessman(chessman)?.let { resPath->
-
-                        val chessmanTexture = Texture(Gdx.files.internal(resPath))
-                        val chessmanActor = ChessmanActor(TextureRegion(chessmanTexture),chessman)
-                        chessmanActor.setSize(chessmanSize,chessmanSize)
-                        chessmanActor.setCenter(originLocationX + (chessman.position.column * chessboardUnitWidth),
-                                originLocationY + (chessman.position.row * chessboardUnitHeight))
-
-                        addActor(chessmanActor)
-                        chessmanActors[chessman.position.row][chessman.position.column] = chessmanActor
-
-                        Gdx.app.log(LogTag.ChessLog, "${chessman.javaClass.simpleName}: ${chessman.position.row} *" +
-                                " ${chessman.position.column}")
-                    }
-                }
-            }
-        }
     }
 
     /**
@@ -239,7 +207,7 @@ class ChessVersusStage(viewport: Viewport) : Stage(viewport) ,OperateObserver{
 
     /********************************     Chessboard    Operation  Observer     ***************************************/
 
-    override fun onRemoveChess(chessman: Chessman) { //判断是否是King，如果是则游戏结束
+    override fun onRemoveChessman(chessman: Chessman) { //判断是否是King，如果是则游戏结束
 
         if (chessman is KingChessman) {
 
@@ -254,7 +222,7 @@ class ChessVersusStage(viewport: Viewport) : Stage(viewport) ,OperateObserver{
         }
     }
 
-    override fun onMoveChess(row: Int, column: Int) {
+    override fun onMoveChessman(row: Int, column: Int) {
 
         //调整 Actor 位置
         chessmanActors[touchPosition.row][touchPosition.column]?.let {
@@ -270,18 +238,23 @@ class ChessVersusStage(viewport: Viewport) : Stage(viewport) ,OperateObserver{
                 ChessTools.queryResPathByNormalChessman(chessmanActors[touchPosition.row][touchPosition.column]?.chessman))
 
         chessmanActors[touchPosition.row][touchPosition.column]?.setSize(chessmanSize,chessmanSize)
-        chessmanActors[touchPosition.row][touchPosition.column]?.setCenter(
-                originLocationX + (touchPosition.column * chessboardUnitWidth),
-                originLocationY + (touchPosition.row * chessboardUnitHeight))
+        chessmanActors[touchPosition.row][touchPosition.column]?.
+                setCenterByRoleType(touchPosition.row,touchPosition.column,
+                        originLocationX,originLocationY,
+                        chessboardUnitWidth,chessboardUnitHeight)
 
         //显示桌面上一步下棋轨迹提示 (提棋子点 -> 落子点)
         oriActor.isVisible = true
-        oriActor.setCenter(originLocationX + column * chessboardUnitWidth,
-                originLocationY + row * chessboardUnitHeight)
+        oriActor.setCenterByRoleType(
+                row,column,
+                originLocationX,originLocationY,
+                chessboardUnitWidth,chessboardUnitHeight)
 
         desActor.isVisible = true
-        desActor.setCenter(originLocationX + (touchPosition.column * chessboardUnitWidth),
-                originLocationY + (touchPosition.row * chessboardUnitHeight))
+        desActor.setCenterByRoleType(
+                touchPosition.row,touchPosition.column,
+                originLocationX,originLocationY,
+                chessboardUnitWidth,chessboardUnitHeight)
 
         ChessHelper.dropChessman()
         dropSound.play()
@@ -302,5 +275,36 @@ class ChessVersusStage(viewport: Viewport) : Stage(viewport) ,OperateObserver{
         ChessHelper.dropChessman()
         dropSound.play()
 
+    }
+
+    override fun onLoadChessmen() {
+
+        for(row in 1 until ChessHelper.RowCapacity) {
+            for (column in 1 until ChessHelper.ColumnCapacity) {
+
+                ChessHelper.queryChessboardInfo()[row][column]?.let { chessman ->
+
+                    //create chessman actor
+                    ChessTools.queryResPathByNormalChessman(chessman)?.let { resPath->
+
+                        val chessmanTexture = Texture(Gdx.files.internal(resPath))
+                        val chessmanActor = ChessmanActor(TextureRegion(chessmanTexture),chessman)
+                        chessmanActor.setSize(chessmanSize,chessmanSize)
+
+                        chessmanActor.setCenterByRoleType(
+                                chessman.position.row,chessman.position.column,
+                                originLocationX,originLocationY,
+                                chessboardUnitWidth,chessboardUnitHeight)
+
+                        addActor(chessmanActor)
+                        chessmanActors[chessman.position.row][chessman.position.column] = chessmanActor
+
+
+//                        Gdx.app.log(LogTag.ChessLog, "${chessman.javaClass.simpleName}: ${chessman.position.row} *" +
+//                                " ${chessman.position.column}")
+                    }
+                }
+            }
+        }
     }
 }
