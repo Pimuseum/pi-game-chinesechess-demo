@@ -1,7 +1,5 @@
 package com.pimuseum.game.chinesechess.model
 
-import com.badlogic.gdx.Gdx
-import com.pimuseum.game.chinesechess.engine.constant.LogTag
 import com.pimuseum.game.chinesechess.model.chessman.*
 import com.pimuseum.game.chinesechess.model.chessman.Chessman
 import com.pimuseum.game.chinesechess.model.chessman.JuChessman
@@ -12,7 +10,7 @@ import com.pimuseum.game.chinesechess.model.chessman.ShiChessman
 import com.pimuseum.game.chinesechess.model.chessman.XiangChessman
 import com.pimuseum.game.chinesechess.model.companion.*
 import com.pimuseum.game.chinesechess.model.tools.ChessTools
-
+import com.pimuseum.game.chinesechess.model.observer.OperateObserver
 
 /**
  * Desc : ChessHelper
@@ -30,7 +28,7 @@ object ChessHelper {
             = Array(RowCapacity ){Array<Chessman?>(ColumnCapacity) { null } }
 
     //己方视角下操作者 Type
-    private var myRoleType = ChessType.Red
+    var myRoleType = ChessType.Red
 
     //当前哪方回合
     private var turnFlag = ChessType.Red
@@ -47,13 +45,6 @@ object ChessHelper {
     //获取当前棋盘坐标集信息
     fun queryChessboardInfo() : Array<Array<Chessman?>> {
         return chessboardInfo
-    }
-
-    /**
-     * 设置己方视角操作者 Type
-     */
-    fun setMyRoleType(type : ChessType) {
-        this.myRoleType = type
     }
 
     /**
@@ -110,7 +101,7 @@ object ChessHelper {
                 //删掉落点处棋子
                 ChessTools.isExistChessmanByPosition(queryChessboardInfo(),nextPosition)?.let { removeChessman->
                     queryChessboardInfo()[removeChessman.position.row][removeChessman.position.column] = null
-                    observer?.onRemoveChess(removeChessman)
+                    observer?.onRemoveChessman(removeChessman)
                     if (removeChessman is KingChessman) return@moveChessman MoveResult.GameOver
                 }
 
@@ -119,7 +110,7 @@ object ChessHelper {
                  */
                 //置空旧坐标对 picked chess的引用
                 queryChessboardInfo()[pickedChessman.position.row][pickedChessman.position.column] = null
-                observer?.onMoveChess(pickedChessman.position.row,pickedChessman.position.column)
+                observer?.onMoveChessman(pickedChessman.position.row,pickedChessman.position.column)
 
                 //更新被选择棋子的坐标信息
                 pickedChessman.updateChessmanPosition(nextPosition.row,nextPosition.column)
@@ -151,7 +142,7 @@ object ChessHelper {
     /**
      * 载入棋子
      */
-    fun loadChessman() {
+    fun loadChessmen() {
 
         dropChessman()
         turnFlag = ChessType.Red
@@ -211,5 +202,6 @@ object ChessHelper {
         chessboardInfo[7][7] = PawnChessman(ChessType.Black, Position(7, 7))
         chessboardInfo[7][9] = PawnChessman(ChessType.Black, Position(7, 9))
 
+        observer?.onLoadChessmen()
     }
 }

@@ -13,8 +13,7 @@
         tools:ignore="GoogleAppIndexingWarning,UnusedAttribute">
 
         <activity
-            android:name="com.pimuseum.game.chinesechess.AndroidLauncher"
-            android:label="@string/app_name" 
+            android:name="com.pimuseum.game.chinesechess.ChessEnterActivity"
             android:screenOrientation="portrait"
             android:configChanges="keyboard|keyboardHidden|navigation|orientation|screenSize|screenLayout">
 
@@ -23,6 +22,15 @@
                 <category android:name="android.intent.category.LAUNCHER" />
 
             </intent-filter>
+
+        </activity>
+
+        <activity
+            android:name="com.pimuseum.game.chinesechess.ChessVersusActivity"
+            android:label="@string/app_name" 
+            android:screenOrientation="portrait"
+            android:configChanges="keyboard|keyboardHidden|navigation|orientation|screenSize|screenLayout">
+
         </activity>
 
     </application>

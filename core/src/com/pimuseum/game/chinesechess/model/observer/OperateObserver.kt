@@ -1,4 +1,4 @@
-package com.pimuseum.game.chinesechess.model.companion
+package com.pimuseum.game.chinesechess.model.observer
 
 import com.pimuseum.game.chinesechess.model.chessman.Chessman
 
@@ -12,10 +12,15 @@ interface OperateObserver {
     /**
      * 吃掉棋子
      */
-    fun onRemoveChess(chessman : Chessman)
+    fun onRemoveChessman(chessman : Chessman)
 
     /**
      * 移动棋子
      */
-    fun onMoveChess(row : Int , column : Int)
+    fun onMoveChessman(row : Int, column : Int)
+
+    /**
+     * 载入棋子
+     */
+    fun onLoadChessmen()
 }

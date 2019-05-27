@@ -5,6 +5,8 @@ import com.badlogic.gdx.graphics.Texture
 import com.badlogic.gdx.graphics.g2d.TextureRegion
 import com.badlogic.gdx.math.Vector2
 import com.pimuseum.game.chinesechess.engine.actor.ChessmanActor
+import com.pimuseum.game.chinesechess.model.ChessHelper
+import com.pimuseum.game.chinesechess.model.companion.ChessType
 import com.pimuseum.game.chinesechess.model.companion.Position
 
 object EngineTools {
@@ -22,8 +24,11 @@ object EngineTools {
 
             val row : Int = Math.round((vector.y - originLocationY) / chessboardUnitHeight)
             val column : Int = Math.round((vector.x - originLocationX) / chessboardUnitWidth)
-
-            Position(row,column)
+            if (ChessHelper.myRoleType == ChessType.Red) {
+                Position(row,column)
+            } else {
+                Position(ChessHelper.RowCapacity - row,ChessHelper.ColumnCapacity - column)
+            }
         } else {
             null
         }

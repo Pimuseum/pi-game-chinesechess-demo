@@ -92,7 +92,7 @@ task run(type: Exec) {
     }
 
     def adb = path + "/platform-tools/adb"
-    commandLine "$adb", 'shell', 'am', 'start', '-n', 'com.pimuseum.game.chinesechess/com.pimuseum.game.chinesechess.AndroidLauncher'
+    commandLine "$adb", 'shell', 'am', 'start', '-n', 'com.pimuseum.game.chinesechess/com.pimuseum.game.chinesechess.ChessVersusActivity'
 }
 
 // sets up the Android Eclipse project, using the old Ant based build.

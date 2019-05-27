@@ -2,6 +2,7 @@ package com.pimuseum.game.chinesechess.engine.game
 
 import com.badlogic.gdx.Game
 import com.badlogic.gdx.Gdx
+import com.pimuseum.game.chinesechess.engine.constant.GameMode
 import com.pimuseum.game.chinesechess.engine.constant.LogTag
 import com.pimuseum.game.chinesechess.engine.screen.ChessVersusScreen
 
@@ -10,7 +11,7 @@ import com.pimuseum.game.chinesechess.engine.screen.ChessVersusScreen
  * Author : Jiervs
  * Date : 2019/5/16
  */
-class ChessVersusGame : Game() {
+class ChessVersusGame(var mode: GameMode) : Game() {
 
     var gameWidth: Float = 0F
     var gameHeight: Float = 0F

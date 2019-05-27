@@ -13,10 +13,10 @@ import com.pimuseum.game.chinesechess.engine.stage.ChessVersusStage
  * Author : Jiervs
  * Date : 2019/4/12
  */
-class ChessVersusScreen(private var game : ChessVersusGame ) : ScreenAdapter() {
+class ChessVersusScreen(var game : ChessVersusGame) : ScreenAdapter() {
 
     private var stage : ChessVersusStage
-            = ChessVersusStage(StretchViewport(game.gameWidth, game.gameHeight))
+            = ChessVersusStage(game.mode,StretchViewport(game.gameWidth, game.gameHeight))
 
     init {
         // link input to stage
