@@ -14,8 +14,7 @@ class ChessVersusActivity : AndroidApplication() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        val config = AndroidApplicationConfiguration()
         //ChessHelper.setMyRoleType(ChessType.Black)
-        initialize(ChessVersusGame(), config)
+        initialize(ChessVersusGame(), AndroidApplicationConfiguration())
     }
 }
