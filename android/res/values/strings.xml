@@ -4,6 +4,7 @@
     <string name="app_name">Pi-ChineseChess</string>
     <string name="self_practice">Self Practice</string>
     <string name="ai_versus">Ai Versus</string>
+    <string name="internet_versus">Internet Versus</string>
     <string name="copyright" translatable="false">Copyright@PiMuseum</string>
 
 </resources>

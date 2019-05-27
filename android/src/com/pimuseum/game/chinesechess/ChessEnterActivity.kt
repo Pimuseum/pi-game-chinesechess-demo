@@ -2,7 +2,6 @@ package com.pimuseum.game.chinesechess
 
 import android.app.Activity
 import android.content.Intent
-import android.content.res.AssetFileDescriptor
 import android.media.AudioAttributes
 import android.media.SoundPool
 import android.os.Bundle

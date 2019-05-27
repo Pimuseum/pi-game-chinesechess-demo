@@ -13,6 +13,7 @@ import com.pimuseum.game.chinesechess.model.ChessHelper
 import com.pimuseum.game.chinesechess.model.tools.ChessTools
 import com.pimuseum.game.chinesechess.engine.actor.ChessBoardActor
 import com.pimuseum.game.chinesechess.engine.actor.ChessmanActor
+import com.pimuseum.game.chinesechess.engine.constant.GameMode
 import com.pimuseum.game.chinesechess.engine.constant.LogTag
 import com.pimuseum.game.chinesechess.engine.tools.EngineTools
 import com.pimuseum.game.chinesechess.model.chessman.Chessman
@@ -25,7 +26,7 @@ import com.pimuseum.game.chinesechess.model.observer.OperateObserver
  * Author : Jiervs
  * Date : 2019/5/16
  */
-class ChessVersusStage(viewport: Viewport) : Stage(viewport) , OperateObserver {
+class ChessVersusStage(var mode : GameMode , viewport: Viewport) : Stage(viewport) , OperateObserver {
 
     private var chessboardWidth : Float = 0F
     private var chessboardHeight : Float = 0F
@@ -49,7 +50,7 @@ class ChessVersusStage(viewport: Viewport) : Stage(viewport) , OperateObserver {
     private lateinit var desActor : ChessmanActor
     private lateinit var chessboardActor : ChessBoardActor
     private var chessmanActors : Array<Array<ChessmanActor?>>
-            = Array(ChessHelper.RowCapacity + 1){Array<ChessmanActor?>(ChessHelper.ColumnCapacity + 1) { null}}
+            = Array(ChessHelper.RowCapacity){Array<ChessmanActor?>(ChessHelper.ColumnCapacity) { null}}
 
     /**
      * Sounds
@@ -85,7 +86,6 @@ class ChessVersusStage(viewport: Viewport) : Stage(viewport) , OperateObserver {
         ChessHelper.observer = this
 
         initActors()
-
     }
 
     /**
@@ -152,12 +152,11 @@ class ChessVersusStage(viewport: Viewport) : Stage(viewport) , OperateObserver {
         val stageVector : Vector2 = screenToStageCoordinates(Vector2(screenX.toFloat(), screenY.toFloat()))
         playChess(stageVector)
 
-
 //        Gdx.app.log("Jiervs", "viewportX: ${viewport.worldWidth} .....viewportY: ${viewport.worldHeight}  \r\n " +
 //                "originLocationX :$originLocationX.....originLocationY :$originLocationY \r\n " +
 //                "stageVectorX :${vector.x}.....stageVectorY :${vector.y}" )
 
-        return super.touchDown(screenX, screenY, pointer, button)
+        return true
     }
 
     /**
@@ -207,7 +206,7 @@ class ChessVersusStage(viewport: Viewport) : Stage(viewport) , OperateObserver {
         }
     }
 
-    /********************************     Chessboard    Operation  Observer     ***************************************/
+    /********************************     Chessboard    Operation    Observer     ***************************************/
 
     override fun onRemoveChessman(chessman: Chessman) { //判断是否是King，如果是则游戏结束
 

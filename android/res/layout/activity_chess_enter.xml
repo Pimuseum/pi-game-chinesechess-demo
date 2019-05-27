@@ -11,35 +11,51 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:src="@drawable/chinese_chess_title"
-        android:layout_marginTop="80dp"/>
+        android:layout_marginTop="100dp"/>
 
-    <TextView
-        android:id="@+id/tvSelfPractice"
-        android:layout_width="200dp"
-        android:layout_height="60dp"
-        android:textColor="#000000"
-        android:text="@string/self_practice"
-        android:textSize="18sp"
-        android:textStyle="bold"
-        android:background="@drawable/btn_bg"
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
         android:gravity="center"
-        android:layout_marginTop="40dp"
-        android:layout_centerHorizontal="true"
-        android:layout_below="@id/ivTitle"/>
+        android:layout_centerInParent="true">
 
-    <TextView
-        android:id="@+id/tvAiVersus"
-        android:layout_width="200dp"
-        android:layout_height="60dp"
-        android:textColor="#000000"
-        android:text="@string/ai_versus"
-        android:textSize="18sp"
-        android:textStyle="bold"
-        android:background="@drawable/btn_bg"
-        android:gravity="center"
-        android:layout_marginTop="15dp"
-        android:layout_centerHorizontal="true"
-        android:layout_below="@id/tvSelfPractice"/>
+        <TextView
+            android:id="@+id/tvSelfPractice"
+            android:layout_width="200dp"
+            android:layout_height="60dp"
+            android:textColor="#000000"
+            android:text="@string/self_practice"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:background="@drawable/btn_bg"
+            android:gravity="center"/>
+
+        <TextView
+            android:id="@+id/tvAiVersus"
+            android:layout_width="200dp"
+            android:layout_height="60dp"
+            android:textColor="#000000"
+            android:text="@string/ai_versus"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:background="@drawable/btn_bg"
+            android:gravity="center"
+            android:layout_marginTop="20dp"/>
+
+        <TextView
+            android:id="@+id/tvInternetVersus"
+            android:layout_width="200dp"
+            android:layout_height="60dp"
+            android:textColor="#000000"
+            android:text="@string/internet_versus"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:background="@drawable/btn_bg"
+            android:gravity="center"
+            android:layout_marginTop="20dp"/>
+
+    </LinearLayout>
 
     <TextView
         android:id="@+id/tvCopyright"
