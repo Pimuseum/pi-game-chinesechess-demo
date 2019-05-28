@@ -36,7 +36,7 @@ class ShiChessman(chessType: ChessType, position: Position) : Chessman(chessType
 
     override fun chessboardRule(chessboardInfo: Array<Array<Chessman?>>, nextPosition: Position): Boolean {
 
-        ChessTools.isExistChessmanByPosition(chessboardInfo,nextPosition)?.let { chessman->
+        ChessTools.isExistChessman(chessboardInfo,nextPosition)?.let { chessman->
             if (chessman.chessType == this@ShiChessman.chessType) return false//同色棋子不能被吃
         }
 

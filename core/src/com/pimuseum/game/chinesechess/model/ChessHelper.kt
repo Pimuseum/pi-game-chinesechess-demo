@@ -52,7 +52,7 @@ object ChessHelper {
      */
     fun pickChessman(chessPosition : Position) : Boolean{
 
-        ChessTools.isExistChessmanByPosition(
+        ChessTools.isExistChessman(
                 queryChessboardInfo(),chessPosition)?.let { chessman->
             if (chessman.chessType == turnFlag) {
                 pickedChessman = chessman
@@ -99,7 +99,7 @@ object ChessHelper {
                 && pickedChessman.chessboardRule(queryChessboardInfo(),nextPosition)) {
 
                 //删掉落点处棋子
-                ChessTools.isExistChessmanByPosition(queryChessboardInfo(),nextPosition)?.let { removeChessman->
+                ChessTools.isExistChessman(queryChessboardInfo(),nextPosition)?.let { removeChessman->
                     queryChessboardInfo()[removeChessman.position.row][removeChessman.position.column] = null
                     observer?.onRemoveChessman(removeChessman)
                     if (removeChessman is KingChessman) return@moveChessman MoveResult.GameOver

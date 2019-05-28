@@ -1,6 +1,6 @@
 package com.pimuseum.game.chinesechess.model.tools
 
-import com.pimuseum.game.chinesechess.model.ChessHelper
+import com.pimuseum.game.chinesechess.engine.constant.GameRes
 import com.pimuseum.game.chinesechess.model.chessman.*
 import com.pimuseum.game.chinesechess.model.companion.ChessType
 import com.pimuseum.game.chinesechess.model.companion.Position
@@ -11,7 +11,7 @@ object ChessTools {
     /**
      * 根据 目标 position 判断是否存在棋子,如果存在则返回该棋子
      */
-    fun isExistChessmanByPosition(chessboardInfo : Array<Array<Chessman?>>, position: Position) : Chessman? {
+    fun isExistChessman(chessboardInfo : Array<Array<Chessman?>>, position: Position) : Chessman? {
         chessboardInfo[position.row][position.column]?.let { chessman ->
             return chessman
         }
@@ -19,9 +19,9 @@ object ChessTools {
     }
 
     /**
-     * 根据 两点连线间存在几个其他棋子
+     * 查询 两点连线间存在几个其他棋子
      */
-    fun chessNumberBetweenPositions(chessboardInfo : Array<Array<Chessman?>>, position1: Position, position2: Position) : Int {
+    fun numberBetween2Positions(chessboardInfo : Array<Array<Chessman?>>, position1: Position, position2: Position) : Int {
 
         var count : Int = 0
 
@@ -71,24 +71,24 @@ object ChessTools {
             return if (chessman.chessType == ChessType.Red) { //Red Chessman
 
                 when(chessman.javaClass) {
-                    JuChessman::class.java -> "actor/chessman_rj.png"
-                    MaChessman::class.java -> "actor/chessman_rm.png"
-                    XiangChessman::class.java -> "actor/chessman_rx.png"
-                    ShiChessman::class.java -> "actor/chessman_rs.png"
-                    KingChessman::class.java -> "actor/chessman_rk.png"
-                    PaoChessman::class.java -> "actor/chessman_rp.png"
-                    PawnChessman::class.java -> "actor/chessman_rpawn.png"
+                    JuChessman::class.java -> GameRes.Actor_Ju_Red_Normal
+                    MaChessman::class.java -> GameRes.Actor_Ma_Red_Normal
+                    XiangChessman::class.java -> GameRes.Actor_Xiang_Red_Normal
+                    ShiChessman::class.java -> GameRes.Actor_Shi_Red_Normal
+                    KingChessman::class.java -> GameRes.Actor_King_Red_Normal
+                    PaoChessman::class.java -> GameRes.Actor_Pao_Red_Normal
+                    PawnChessman::class.java -> GameRes.Actor_Pawn_Red_Normal
                     else -> null
                 }
             } else {
                 when(chessman.javaClass) { //Black Chessman
-                    JuChessman::class.java -> "actor/chessman_bj.png"
-                    MaChessman::class.java -> "actor/chessman_bm.png"
-                    XiangChessman::class.java -> "actor/chessman_bx.png"
-                    ShiChessman::class.java -> "actor/chessman_bs.png"
-                    KingChessman::class.java -> "actor/chessman_bk.png"
-                    PaoChessman::class.java -> "actor/chessman_bp.png"
-                    PawnChessman::class.java -> "actor/chessman_bpawn.png"
+                    JuChessman::class.java -> GameRes.Actor_Ju_Black_Normal
+                    MaChessman::class.java -> GameRes.Actor_Ma_Black_Normal
+                    XiangChessman::class.java -> GameRes.Actor_Xiang_Black_Normal
+                    ShiChessman::class.java -> GameRes.Actor_Shi_Black_Normal
+                    KingChessman::class.java -> GameRes.Actor_King_Black_Normal
+                    PaoChessman::class.java -> GameRes.Actor_Pao_Black_Normal
+                    PawnChessman::class.java -> GameRes.Actor_Pawn_Black_Normal
                     else -> null
                 }
             }
@@ -106,24 +106,24 @@ object ChessTools {
             return if (chessman.chessType == ChessType.Red) { //Red Chessman
 
                 when(chessman.javaClass) {
-                    JuChessman::class.java -> "actor/chessman_rjp.png"
-                    MaChessman::class.java -> "actor/chessman_rmp.png"
-                    XiangChessman::class.java -> "actor/chessman_rxp.png"
-                    ShiChessman::class.java -> "actor/chessman_rsp.png"
-                    KingChessman::class.java -> "actor/chessman_rkp.png"
-                    PaoChessman::class.java -> "actor/chessman_rpp.png"
-                    PawnChessman::class.java -> "actor/chessman_rpawnp.png"
+                    JuChessman::class.java -> GameRes.Actor_Ju_Red_Picked
+                    MaChessman::class.java -> GameRes.Actor_Ma_Red_Picked
+                    XiangChessman::class.java -> GameRes.Actor_Xiang_Red_Picked
+                    ShiChessman::class.java -> GameRes.Actor_Shi_Red_Picked
+                    KingChessman::class.java -> GameRes.Actor_King_Red_Picked
+                    PaoChessman::class.java -> GameRes.Actor_Pao_Red_Picked
+                    PawnChessman::class.java -> GameRes.Actor_Pawn_Red_Picked
                     else -> null
                 }
             } else {
                 when(chessman.javaClass) { //Black Chessman
-                    JuChessman::class.java -> "actor/chessman_bjp.png"
-                    MaChessman::class.java -> "actor/chessman_bmp.png"
-                    XiangChessman::class.java -> "actor/chessman_bxp.png"
-                    ShiChessman::class.java -> "actor/chessman_bsp.png"
-                    KingChessman::class.java -> "actor/chessman_bkp.png"
-                    PaoChessman::class.java -> "actor/chessman_bpp.png"
-                    PawnChessman::class.java -> "actor/chessman_bpawnp.png"
+                    JuChessman::class.java -> GameRes.Actor_Ju_Black_Picked
+                    MaChessman::class.java -> GameRes.Actor_Ma_Black_Picked
+                    XiangChessman::class.java -> GameRes.Actor_Xiang_Black_Picked
+                    ShiChessman::class.java -> GameRes.Actor_Shi_Black_Picked
+                    KingChessman::class.java -> GameRes.Actor_King_Black_Picked
+                    PaoChessman::class.java -> GameRes.Actor_Pao_Black_Picked
+                    PawnChessman::class.java -> GameRes.Actor_Pawn_Black_Picked
                     else -> null
                 }
             }
