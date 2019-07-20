@@ -1,37 +1,42 @@
-# 游戏开发之象棋  
-[**象棋(Chinese Chess)**](https://baike.baidu.com/item/%E8%B1%A1%E6%A3%8B/30665)
+# PiMesuem-Game-ChineseChess 
 
-## 象棋的数学模型
-### **棋盘:**    
-* 棋盘为 **10行9列**，映射数学模型为二维坐标系，因存在棋谱记法(炮二平四，车六进三等)，以己方为视角，正对棋盘，从 **右往左依** 次为 **1至9列** ，**从下往上** 依次为 **1至10行** ，因此建立 **XY** 轴二维坐标系。
+[![License](https://img.shields.io/badge/license-Apache%202-green.svg)](https://www.apache.org/licenses/LICENSE-2.0)
 
-* 从 **右向左为** 为 **X轴** 正方向，从 **从下往上** 为 **Y轴** 正方向，且以棋盘右下角坐标为（x=1,y=1，则棋盘左上角的坐标为（x=9,y=10)，与棋谱记录法一一对应，对方棋盘视角可通过棋盘中心点（x = (9-1)/2，y=(10-1)/2) 即 (x=4,y=4.5)
-旋转180度换算成己方视角。
+[**Chinese Chess**](https://en.wikipedia.org/wiki/Xiangqi)
 
-* 棋子落点则为以棋盘为基础的坐标系上的点，是二维坐标系内一个离散有限集合，即10*9 = 90个坐标点，是棋盘的一个固定数据。 
+## Mathematical Model of ChineseChess
+### **ChessBoard:**    
+* The chessboard consists of **10** rows and **9** columns,the mapping mathematical model is a plane systems of coordinates,because of the existence of chess notation,form the first person perspective,facing chessboard，**columns 1 to 9** from left to right,**rows 1 to 10** from bottom to top,therefore, two-dimensional coordinate system of **XY** axis is established.
 
-### **棋子:**  
-* 棋子起始共有32个 ，棋子附有坐标位置属性，棋子被棋盘所持有，我们称之棋子集合为R,棋子的可落点坐标即为对R的约束。
+* From right to left, in the positive direction of the **X-axis**,From bottom to top, it is in the positive direction of the **Y axis**,the lower-left coordinates are assumed to be **(1,1)**,One-to-one correspondence with chess notation.
 
-* 棋子具有移动的功能，根据不同棋子的特性产生移动行为后，会对棋子集合R产生处理，并且移动前会被落点数据上的其他棋子约束（比如马蹩脚），移动后的结果会对棋盘的落点分配有影响。 
+* Chess placement is a finite set in a two-dimensional coordinate system,that is, **10 * 9 = 90** coordinate points,it's a fixed data on the chessboard. 
 
-* 棋子区分红方和黑方，减少集合R的唯一行为本质是红旗和黑棋占用同一落子的坐标位置，且只能是前者被后者移除。
+### **Chessman:**  
+* There are **32** chess pieces at the beginning,chessman with coordinate position attributes.The chessboard holds the chessman,we call the set of chessman **R**.
 
-### **下棋:**
-* 即回合制对棋子使用移动功能，在移动前根据棋子规则对棋盘进行查询，满足条件即可产生移动，对棋子进行可落子的可能遍历，功能执行结束后从新审视棋盘情况。 
+* Chessman have the function of moving,after moving according to the characteristics of different chessman,the set **R** of chessman will be processed, and before moving, it will be constrained by other chessman on the falling point,the result of moving will affect the placement of the chessboard. 
 
-## 象棋的数据结构设计
+* The only way to reduce set **R** is that **red** and **black** chessman occupy the same coordinate position, and the former can only be removed by the latter.
 
-### **映射数据模型:**
+### **Play Chess:**
+* That is to say, turn system uses **mobile function** for chessboard, queries chessboard according to the **rules** of chessboard before moving, meets the conditions, then moves chessman, traverses the **possibilities of falling chessman**, and reviews the chessboard situation from the end of function execution 
 
-* 棋盘为全局对象，一个可被有序操作的类，包含一个被固定坐标数据约束的棋子对象集合，持有一个全局方法或者操作对象，每一次回合的操作即使对棋子对象集合产生2种主要行为：删除棋子对象，改变棋子对象的坐标属性。
+## Data Structure Design of Chess
 
-* 棋子为数据对象，基础属性为坐标，基本方法为改变坐标值，不同的棋子则为棋子基础类的派生类，可重写其改变坐标的方法，或者每个棋子对象包含一个约束类，监听棋盘对象的坐标占用情况，计算出改变坐标的值是否满其移动的前置条件。
+### **Mapping Data Model:**
 
-* 下棋为操作对象或者是棋盘对象存在的全局方法，每一次对集合R的处理结果通过定义的规则利用游戏引擎渲染到Ui。
+* The chessboard is a **global object**, which can be operated in an **orderly manner**. It contains a set of chessman objects constrained by fixed coordinate data. It holds a global method or an operation object. Each round of operation produces two main behaviors for the set of chessboard objects: **deleting the chessman** objects and **changing the coordinate attributes** of the chessman objects.
 
-### Tips 
-* 基本单击操作的象棋数据结构设计如此(整个过程因为集合是小于或等于32的，单次对数据做全遍历操作，在耗时上没有直观区别，但是程序可以通过对棋子对象的列，横向索引排序，对棋子对象的移动行为做可达性分析和优化，减少对数据的查询量，操作量，还有轨迹记录分析，不能走3遍旧棋，设计电脑Ai等)
+* Chessman are data objects, basic attributes are coordinates, basic methods are to change coordinate values, different chessman are derived from the basic class of chessman, the **method of changing coordinates** can be rewritten, or each chess object contains a constraint class, monitor the **occupancy of coordinates of chessboard objects**, and calculate the preconditions for changing the coordinate value to be full of its movement.
 
-**Continue Optimizing**... [Jiervs](https://github.com/Jiervs)
+* **Playing Chess** is a global method for the existence of operating objects or chessboard objects. The result of each processing of set R is rendered to Ui by using **game engine** through defined rules.
+
+## Game Demo
+
+<img width="180" height="320" src="pimuseum-game-chinesechess.gif"/>
+
+### **Continue Optimizing**  
+
+[Jiervs](https://github.com/Jiervs)
 

@@ -24,9 +24,10 @@ object EngineTools {
 
             val row : Int = Math.round((vector.y - originLocationY) / chessboardUnitHeight)
             val column : Int = Math.round((vector.x - originLocationX) / chessboardUnitWidth)
-            if (ChessHelper.myRoleType == ChessType.Red) {
+
+            if (ChessHelper.myRoleType == ChessType.Red) { //如果第一人称视角是红方
                 Position(row,column)
-            } else {
+            } else { //如果第一人称视角是黑方
                 Position(ChessHelper.RowCapacity - row,ChessHelper.ColumnCapacity - column)
             }
         } else {

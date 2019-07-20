@@ -2,14 +2,14 @@ package com.pimuseum.game.chinesechess.model
 
 import com.pimuseum.game.chinesechess.model.chessman.*
 import com.pimuseum.game.chinesechess.model.chessman.Chessman
-import com.pimuseum.game.chinesechess.model.chessman.JuChessman
-import com.pimuseum.game.chinesechess.model.chessman.KingChessman
-import com.pimuseum.game.chinesechess.model.chessman.MaChessman
-import com.pimuseum.game.chinesechess.model.chessman.PaoChessman
-import com.pimuseum.game.chinesechess.model.chessman.ShiChessman
-import com.pimuseum.game.chinesechess.model.chessman.XiangChessman
+import com.pimuseum.game.chinesechess.model.chessman.ChariotChessman
+import com.pimuseum.game.chinesechess.model.chessman.GeneralChessman
+import com.pimuseum.game.chinesechess.model.chessman.HorseChessman
+import com.pimuseum.game.chinesechess.model.chessman.CannonChessman
+import com.pimuseum.game.chinesechess.model.chessman.AdvisorChessman
+import com.pimuseum.game.chinesechess.model.chessman.ElephantChessman
 import com.pimuseum.game.chinesechess.model.companion.*
-import com.pimuseum.game.chinesechess.model.tools.ChessTools
+import com.pimuseum.game.chinesechess.model.logic.ChessLogic
 import com.pimuseum.game.chinesechess.model.observer.OperateObserver
 
 /**
@@ -52,7 +52,7 @@ object ChessHelper {
      */
     fun pickChessman(chessPosition : Position) : Boolean{
 
-        ChessTools.isExistChessmanByPosition(
+        ChessLogic.isExistChessman(
                 queryChessboardInfo(),chessPosition)?.let { chessman->
             if (chessman.chessType == turnFlag) {
                 pickedChessman = chessman
@@ -99,10 +99,10 @@ object ChessHelper {
                 && pickedChessman.chessboardRule(queryChessboardInfo(),nextPosition)) {
 
                 //删掉落点处棋子
-                ChessTools.isExistChessmanByPosition(queryChessboardInfo(),nextPosition)?.let { removeChessman->
+                ChessLogic.isExistChessman(queryChessboardInfo(),nextPosition)?.let { removeChessman->
                     queryChessboardInfo()[removeChessman.position.row][removeChessman.position.column] = null
                     observer?.onRemoveChessman(removeChessman)
-                    if (removeChessman is KingChessman) return@moveChessman MoveResult.GameOver
+                    if (removeChessman is GeneralChessman) return@moveChessman MoveResult.GameOver
                 }
 
                 /**
@@ -155,52 +155,52 @@ object ChessHelper {
         }
 
         //红车
-        chessboardInfo[1][1] = JuChessman(ChessType.Red, Position(1, 1))
-        chessboardInfo[1][9] = JuChessman(ChessType.Red, Position(1, 9))
+        chessboardInfo[1][1] = ChariotChessman(ChessType.Red, Position(1, 1))
+        chessboardInfo[1][9] = ChariotChessman(ChessType.Red, Position(1, 9))
         //红马
-        chessboardInfo[1][2] = MaChessman(ChessType.Red, Position(1, 2))
-        chessboardInfo[1][8] = MaChessman(ChessType.Red, Position(1, 8))
+        chessboardInfo[1][2] = HorseChessman(ChessType.Red, Position(1, 2))
+        chessboardInfo[1][8] = HorseChessman(ChessType.Red, Position(1, 8))
         //红相
-        chessboardInfo[1][3] = XiangChessman(ChessType.Red, Position(1, 3))
-        chessboardInfo[1][7] = XiangChessman(ChessType.Red, Position(1, 7))
+        chessboardInfo[1][3] = ElephantChessman(ChessType.Red, Position(1, 3))
+        chessboardInfo[1][7] = ElephantChessman(ChessType.Red, Position(1, 7))
         //红士
-        chessboardInfo[1][4] = ShiChessman(ChessType.Red, Position(1, 4))
-        chessboardInfo[1][6] = ShiChessman(ChessType.Red, Position(1, 6))
+        chessboardInfo[1][4] = AdvisorChessman(ChessType.Red, Position(1, 4))
+        chessboardInfo[1][6] = AdvisorChessman(ChessType.Red, Position(1, 6))
         //帅
-        chessboardInfo[1][5] = KingChessman(ChessType.Red, Position(1, 5))
+        chessboardInfo[1][5] = GeneralChessman(ChessType.Red, Position(1, 5))
         //红炮
-        chessboardInfo[3][2] = PaoChessman(ChessType.Red, Position(3, 2))
-        chessboardInfo[3][8] = PaoChessman(ChessType.Red, Position(3, 8))
+        chessboardInfo[3][2] = CannonChessman(ChessType.Red, Position(3, 2))
+        chessboardInfo[3][8] = CannonChessman(ChessType.Red, Position(3, 8))
         //兵
-        chessboardInfo[4][1] = PawnChessman(ChessType.Red, Position(4, 1))
-        chessboardInfo[4][3] = PawnChessman(ChessType.Red, Position(4, 3))
-        chessboardInfo[4][5] = PawnChessman(ChessType.Red, Position(4, 5))
-        chessboardInfo[4][7] = PawnChessman(ChessType.Red, Position(4, 7))
-        chessboardInfo[4][9] = PawnChessman(ChessType.Red, Position(4, 9))
+        chessboardInfo[4][1] = SoldierChessman(ChessType.Red, Position(4, 1))
+        chessboardInfo[4][3] = SoldierChessman(ChessType.Red, Position(4, 3))
+        chessboardInfo[4][5] = SoldierChessman(ChessType.Red, Position(4, 5))
+        chessboardInfo[4][7] = SoldierChessman(ChessType.Red, Position(4, 7))
+        chessboardInfo[4][9] = SoldierChessman(ChessType.Red, Position(4, 9))
 
         //黑车
-        chessboardInfo[10][1] = JuChessman(ChessType.Black, Position(10, 1))
-        chessboardInfo[10][9] = JuChessman(ChessType.Black, Position(10, 9))
+        chessboardInfo[10][1] = ChariotChessman(ChessType.Black, Position(10, 1))
+        chessboardInfo[10][9] = ChariotChessman(ChessType.Black, Position(10, 9))
         //黑马
-        chessboardInfo[10][2] = MaChessman(ChessType.Black, Position(10, 2))
-        chessboardInfo[10][8] = MaChessman(ChessType.Black, Position(10, 8))
+        chessboardInfo[10][2] = HorseChessman(ChessType.Black, Position(10, 2))
+        chessboardInfo[10][8] = HorseChessman(ChessType.Black, Position(10, 8))
         //黑象
-        chessboardInfo[10][3] = XiangChessman(ChessType.Black, Position(10, 3))
-        chessboardInfo[10][7] = XiangChessman(ChessType.Black, Position(10, 7))
+        chessboardInfo[10][3] = ElephantChessman(ChessType.Black, Position(10, 3))
+        chessboardInfo[10][7] = ElephantChessman(ChessType.Black, Position(10, 7))
         //黑仕
-        chessboardInfo[10][4] = ShiChessman(ChessType.Black, Position(10, 4))
-        chessboardInfo[10][6] = ShiChessman(ChessType.Black, Position(10, 6))
+        chessboardInfo[10][4] = AdvisorChessman(ChessType.Black, Position(10, 4))
+        chessboardInfo[10][6] = AdvisorChessman(ChessType.Black, Position(10, 6))
         //将
-        chessboardInfo[10][5] = KingChessman(ChessType.Black, Position(10, 5))
+        chessboardInfo[10][5] = GeneralChessman(ChessType.Black, Position(10, 5))
         //黑炮
-        chessboardInfo[8][2] = PaoChessman(ChessType.Black, Position(8, 2))
-        chessboardInfo[8][8] = PaoChessman(ChessType.Black, Position(8, 8))
+        chessboardInfo[8][2] = CannonChessman(ChessType.Black, Position(8, 2))
+        chessboardInfo[8][8] = CannonChessman(ChessType.Black, Position(8, 8))
         //卒
-        chessboardInfo[7][1] = PawnChessman(ChessType.Black, Position(7, 1))
-        chessboardInfo[7][3] = PawnChessman(ChessType.Black, Position(7, 3))
-        chessboardInfo[7][5] = PawnChessman(ChessType.Black, Position(7, 5))
-        chessboardInfo[7][7] = PawnChessman(ChessType.Black, Position(7, 7))
-        chessboardInfo[7][9] = PawnChessman(ChessType.Black, Position(7, 9))
+        chessboardInfo[7][1] = SoldierChessman(ChessType.Black, Position(7, 1))
+        chessboardInfo[7][3] = SoldierChessman(ChessType.Black, Position(7, 3))
+        chessboardInfo[7][5] = SoldierChessman(ChessType.Black, Position(7, 5))
+        chessboardInfo[7][7] = SoldierChessman(ChessType.Black, Position(7, 7))
+        chessboardInfo[7][9] = SoldierChessman(ChessType.Black, Position(7, 9))
 
         observer?.onLoadChessmen()
     }

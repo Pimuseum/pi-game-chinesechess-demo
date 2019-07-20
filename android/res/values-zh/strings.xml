@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="app_name">π-中国象棋</string>
+    <string name="app_name">中国象棋</string>
     <string name="self_practice">锲而不舍</string>
     <string name="ai_versus">神之一手</string>
     <string name="internet_versus">难分伯仲</string>
