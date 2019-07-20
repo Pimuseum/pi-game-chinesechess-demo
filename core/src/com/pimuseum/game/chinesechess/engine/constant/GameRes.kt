@@ -15,24 +15,24 @@ object GameRes {
             return if (chessman.chessType == ChessType.Red) { //Red Chessman
 
                 when(chessman.javaClass) {
-                    JuChessman::class.java -> GameRes.Actor_Ju_Red_Normal
-                    MaChessman::class.java -> GameRes.Actor_Ma_Red_Normal
-                    XiangChessman::class.java -> GameRes.Actor_Xiang_Red_Normal
-                    ShiChessman::class.java -> GameRes.Actor_Shi_Red_Normal
-                    KingChessman::class.java -> GameRes.Actor_King_Red_Normal
-                    PaoChessman::class.java -> GameRes.Actor_Pao_Red_Normal
-                    PawnChessman::class.java -> GameRes.Actor_Pawn_Red_Normal
+                    ChariotChessman::class.java -> GameRes.Actor_Ju_Red_Normal
+                    HorseChessman::class.java -> GameRes.Actor_Ma_Red_Normal
+                    ElephantChessman::class.java -> GameRes.Actor_Xiang_Red_Normal
+                    AdvisorChessman::class.java -> GameRes.Actor_Shi_Red_Normal
+                    GeneralChessman::class.java -> GameRes.Actor_King_Red_Normal
+                    CannonChessman::class.java -> GameRes.Actor_Pao_Red_Normal
+                    SoldierChessman::class.java -> GameRes.Actor_Pawn_Red_Normal
                     else -> null
                 }
             } else {
                 when(chessman.javaClass) { //Black Chessman
-                    JuChessman::class.java -> GameRes.Actor_Ju_Black_Normal
-                    MaChessman::class.java -> GameRes.Actor_Ma_Black_Normal
-                    XiangChessman::class.java -> GameRes.Actor_Xiang_Black_Normal
-                    ShiChessman::class.java -> GameRes.Actor_Shi_Black_Normal
-                    KingChessman::class.java -> GameRes.Actor_King_Black_Normal
-                    PaoChessman::class.java -> GameRes.Actor_Pao_Black_Normal
-                    PawnChessman::class.java -> GameRes.Actor_Pawn_Black_Normal
+                    ChariotChessman::class.java -> GameRes.Actor_Ju_Black_Normal
+                    HorseChessman::class.java -> GameRes.Actor_Ma_Black_Normal
+                    ElephantChessman::class.java -> GameRes.Actor_Xiang_Black_Normal
+                    AdvisorChessman::class.java -> GameRes.Actor_Shi_Black_Normal
+                    GeneralChessman::class.java -> GameRes.Actor_King_Black_Normal
+                    CannonChessman::class.java -> GameRes.Actor_Pao_Black_Normal
+                    SoldierChessman::class.java -> GameRes.Actor_Pawn_Black_Normal
                     else -> null
                 }
             }
@@ -50,24 +50,24 @@ object GameRes {
             return if (chessman.chessType == ChessType.Red) { //Red Chessman
 
                 when(chessman.javaClass) {
-                    JuChessman::class.java -> GameRes.Actor_Ju_Red_Picked
-                    MaChessman::class.java -> GameRes.Actor_Ma_Red_Picked
-                    XiangChessman::class.java -> GameRes.Actor_Xiang_Red_Picked
-                    ShiChessman::class.java -> GameRes.Actor_Shi_Red_Picked
-                    KingChessman::class.java -> GameRes.Actor_King_Red_Picked
-                    PaoChessman::class.java -> GameRes.Actor_Pao_Red_Picked
-                    PawnChessman::class.java -> GameRes.Actor_Pawn_Red_Picked
+                    ChariotChessman::class.java -> GameRes.Actor_Ju_Red_Picked
+                    HorseChessman::class.java -> GameRes.Actor_Ma_Red_Picked
+                    ElephantChessman::class.java -> GameRes.Actor_Xiang_Red_Picked
+                    AdvisorChessman::class.java -> GameRes.Actor_Shi_Red_Picked
+                    GeneralChessman::class.java -> GameRes.Actor_King_Red_Picked
+                    CannonChessman::class.java -> GameRes.Actor_Pao_Red_Picked
+                    SoldierChessman::class.java -> GameRes.Actor_Pawn_Red_Picked
                     else -> null
                 }
             } else {
                 when(chessman.javaClass) { //Black Chessman
-                    JuChessman::class.java -> GameRes.Actor_Ju_Black_Picked
-                    MaChessman::class.java -> GameRes.Actor_Ma_Black_Picked
-                    XiangChessman::class.java -> GameRes.Actor_Xiang_Black_Picked
-                    ShiChessman::class.java -> GameRes.Actor_Shi_Black_Picked
-                    KingChessman::class.java -> GameRes.Actor_King_Black_Picked
-                    PaoChessman::class.java -> GameRes.Actor_Pao_Black_Picked
-                    PawnChessman::class.java -> GameRes.Actor_Pawn_Black_Picked
+                    ChariotChessman::class.java -> GameRes.Actor_Ju_Black_Picked
+                    HorseChessman::class.java -> GameRes.Actor_Ma_Black_Picked
+                    ElephantChessman::class.java -> GameRes.Actor_Xiang_Black_Picked
+                    AdvisorChessman::class.java -> GameRes.Actor_Shi_Black_Picked
+                    GeneralChessman::class.java -> GameRes.Actor_King_Black_Picked
+                    CannonChessman::class.java -> GameRes.Actor_Pao_Black_Picked
+                    SoldierChessman::class.java -> GameRes.Actor_Pawn_Black_Picked
                     else -> null
                 }
             }

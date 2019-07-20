@@ -5,11 +5,11 @@ import com.pimuseum.game.chinesechess.model.companion.Position
 import com.pimuseum.game.chinesechess.model.logic.ChessLogic
 
 /**
- * Desc : ShiChessman(士，仕)
+ * Desc : AdvisorChessman(士，仕)
  * Author : Jiervs
  * Date : 2019/3/20
  */
-class ShiChessman(chessType: ChessType, position: Position) : Chessman(chessType, position) {
+class AdvisorChessman(chessType: ChessType, position: Position) : Chessman(chessType, position) {
 
     override fun chessmanRule(nextPosition: Position): Boolean {
 
@@ -37,7 +37,7 @@ class ShiChessman(chessType: ChessType, position: Position) : Chessman(chessType
     override fun chessboardRule(chessboardInfo: Array<Array<Chessman?>>, nextPosition: Position): Boolean {
 
         ChessLogic.isExistChessman(chessboardInfo,nextPosition)?.let { chessman->
-            if (chessman.chessType == this@ShiChessman.chessType) return false//同色棋子不能被吃
+            if (chessman.chessType == this@AdvisorChessman.chessType) return false//同色棋子不能被吃
         }
 
         return true

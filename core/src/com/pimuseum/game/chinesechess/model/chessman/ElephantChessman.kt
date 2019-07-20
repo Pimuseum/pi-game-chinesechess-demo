@@ -5,11 +5,11 @@ import com.pimuseum.game.chinesechess.model.companion.Position
 import com.pimuseum.game.chinesechess.model.logic.ChessLogic
 
 /**
- * Desc : XiangChessman(相，象)
+ * Desc : ElephantChessman(相，象)
  * Author : Jiervs
  * Date : 2019/3/20
  */
-class XiangChessman(chessType: ChessType, position: Position) : Chessman(chessType, position) {
+class ElephantChessman(chessType: ChessType, position: Position) : Chessman(chessType, position) {
 
     override fun chessmanRule(nextPosition: Position): Boolean {
 
@@ -30,12 +30,12 @@ class XiangChessman(chessType: ChessType, position: Position) : Chessman(chessTy
     override fun chessboardRule(chessboardInfo: Array<Array<Chessman?>>, nextPosition: Position): Boolean {
 
         ChessLogic.isExistChessman(chessboardInfo,nextPosition)?.let { chessman->
-            if (chessman.chessType == this@XiangChessman.chessType) return false//同色棋子不能被吃
+            if (chessman.chessType == this@ElephantChessman.chessType) return false//同色棋子不能被吃
         }
 
         //计算田心坐标,这里行列坐标差值都是2，棋子约束决定，所以计算出来的中心坐标不存在小数
-        val centerColumn = (this@XiangChessman.position.column + nextPosition.column)/2
-        val centerRow = (this@XiangChessman.position.row + nextPosition.row)/2
+        val centerColumn = (this@ElephantChessman.position.column + nextPosition.column)/2
+        val centerRow = (this@ElephantChessman.position.row + nextPosition.row)/2
 
         ChessLogic.isExistChessman(chessboardInfo, Position(centerRow, centerColumn)
         )?.let {

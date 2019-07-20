@@ -34,7 +34,7 @@
 
 ## Game Demo
 
-![Game-Demo](pimuseum-game-chinesechess.gif)
+<img width="180" height="320" src="pimuseum-game-chinesechess.gif"/>
 
 ### **Continue Optimizing**  
 

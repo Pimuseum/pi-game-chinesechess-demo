@@ -5,38 +5,31 @@ import com.pimuseum.game.chinesechess.model.companion.Position
 import com.pimuseum.game.chinesechess.model.logic.ChessLogic
 
 /**
- * Desc : PawnChessman(兵,卒)
+ * Desc : GeneralChessman(帅,将)
  * Author : Jiervs
  * Date : 2019/3/20
  */
-class PawnChessman(chessType: ChessType, position: Position) : Chessman(chessType, position) {
+class GeneralChessman(chessType: ChessType, position: Position) : Chessman(chessType, position) {
 
     override fun chessmanRule(nextPosition: Position): Boolean {
 
-        //兵卒移动距离为1
+        //帅,将移动距离为1
        if ((Math.abs(nextPosition.column - position.column) + Math.abs(nextPosition.row - position.row)) != 1) return false
 
-        //兵卒只能向前走和平移,过河以前不能横向移动
-
         return if (chessType == ChessType.Red) {//红棋子
-            if (position.row <= 5) {
-                nextPosition.row >= position.row && nextPosition.column == position.column
-            } else {
-                nextPosition.row >= position.row
-            }
+            //帅,将只能在九宫格内移动
+            nextPosition.column in 4..6 && nextPosition.row in 1..3
+
         } else {//黑棋子
-            if (position.row >= 6) {
-                nextPosition.row <= position.row && nextPosition.column == position.column
-            } else {
-                nextPosition.row <= position.row
-            }
+
+            nextPosition.column in 4..6 && nextPosition.row in 8..10
         }
     }
 
     override fun chessboardRule(chessboardInfo: Array<Array<Chessman?>>, nextPosition: Position): Boolean {
 
         ChessLogic.isExistChessman(chessboardInfo,nextPosition)?.let { chessman->
-            if (chessman.chessType == this@PawnChessman.chessType) return false//同色棋子不能被吃
+            if (chessman.chessType == this@GeneralChessman.chessType) return false//同色棋子不能被吃
         }
         return true
     }
@@ -44,8 +37,8 @@ class PawnChessman(chessType: ChessType, position: Position) : Chessman(chessTyp
     override fun chessmanName(): String {
 
         return when(chessType) {
-            ChessType.Red -> "兵"
-            ChessType.Black -> "卒"
+            ChessType.Red -> "帅"
+            ChessType.Black -> "将"
         }
     }
 }

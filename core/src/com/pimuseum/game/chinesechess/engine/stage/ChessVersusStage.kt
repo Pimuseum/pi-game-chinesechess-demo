@@ -17,7 +17,7 @@ import com.pimuseum.game.chinesechess.engine.constant.LogTag
 import com.pimuseum.game.chinesechess.engine.constant.GameRes
 import com.pimuseum.game.chinesechess.engine.tools.EngineTools
 import com.pimuseum.game.chinesechess.model.chessman.Chessman
-import com.pimuseum.game.chinesechess.model.chessman.KingChessman
+import com.pimuseum.game.chinesechess.model.chessman.GeneralChessman
 import com.pimuseum.game.chinesechess.model.companion.*
 import com.pimuseum.game.chinesechess.model.observer.OperateObserver
 
@@ -210,7 +210,7 @@ class ChessVersusStage(var mode : GameMode , viewport: Viewport) : Stage(viewpor
 
     override fun onRemoveChessman(chessman: Chessman) { //判断是否是King，如果是则游戏结束
 
-        if (chessman is KingChessman) {
+        if (chessman is GeneralChessman) {
 
             if (chessman.chessType == ChessType.Red) {
                 Gdx.app.log(LogTag.OPLog, "Black Win")

@@ -5,11 +5,11 @@ import com.pimuseum.game.chinesechess.model.companion.Position
 import com.pimuseum.game.chinesechess.model.logic.ChessLogic
 
 /**
- * Desc : MaChessman(马)
+ * Desc : HorseChessman(马)
  * Author : Jiervs
  * Date : 2019/3/20
  */
-class MaChessman(chessType: ChessType, position: Position) : Chessman(chessType, position) {
+class HorseChessman(chessType: ChessType, position: Position) : Chessman(chessType, position) {
 
     override fun chessmanRule(nextPosition: Position): Boolean {
 
@@ -21,7 +21,7 @@ class MaChessman(chessType: ChessType, position: Position) : Chessman(chessType,
     override fun chessboardRule(chessboardInfo: Array<Array<Chessman?>>, nextPosition: Position): Boolean {
 
         ChessLogic.isExistChessman(chessboardInfo,nextPosition)?.let { chessman->
-            if (chessman.chessType == this@MaChessman.chessType) return false//同色棋子不能被吃
+            if (chessman.chessType == this@HorseChessman.chessType) return false//同色棋子不能被吃
         }
 
         //先判断是行向蹩脚还是列向蹩脚
