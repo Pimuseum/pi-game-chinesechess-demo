@@ -2,7 +2,7 @@ package com.pimuseum.game.chinesechess.model.chessman
 
 import com.pimuseum.game.chinesechess.model.companion.ChessType
 import com.pimuseum.game.chinesechess.model.companion.Position
-import com.pimuseum.game.chinesechess.model.tools.ChessTools
+import com.pimuseum.game.chinesechess.model.logic.ChessLogic
 
 /**
  * Desc : PaoChessman(炮)
@@ -20,15 +20,15 @@ class PaoChessman(chessType: ChessType, position: Position) : Chessman(chessType
 
     override fun chessboardRule(chessboardInfo: Array<Array<Chessman?>>, nextPosition: Position): Boolean {
 
-        ChessTools.isExistChessman(chessboardInfo,nextPosition)?.let { chessman->
+        ChessLogic.isExistChessman(chessboardInfo,nextPosition)?.let { chessman->
             if (chessman.chessType == this@PaoChessman.chessType) return false//同色棋子不能被吃
 
             //落点存在对方棋子时候，需隔山打炮
-            return ChessTools.numberBetween2Positions(chessboardInfo,this@PaoChessman.position,nextPosition) == 1
+            return ChessLogic.numberBetween2Positions(chessboardInfo,this@PaoChessman.position,nextPosition) == 1
         }
 
         //落点不存在对方棋子时候，炮行列皆行
-        return ChessTools.numberBetween2Positions(chessboardInfo,this@PaoChessman.position,nextPosition) == 0
+        return ChessLogic.numberBetween2Positions(chessboardInfo,this@PaoChessman.position,nextPosition) == 0
 
     }
 

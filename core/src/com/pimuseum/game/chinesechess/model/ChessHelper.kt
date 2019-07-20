@@ -9,7 +9,7 @@ import com.pimuseum.game.chinesechess.model.chessman.PaoChessman
 import com.pimuseum.game.chinesechess.model.chessman.ShiChessman
 import com.pimuseum.game.chinesechess.model.chessman.XiangChessman
 import com.pimuseum.game.chinesechess.model.companion.*
-import com.pimuseum.game.chinesechess.model.tools.ChessTools
+import com.pimuseum.game.chinesechess.model.logic.ChessLogic
 import com.pimuseum.game.chinesechess.model.observer.OperateObserver
 
 /**
@@ -52,7 +52,7 @@ object ChessHelper {
      */
     fun pickChessman(chessPosition : Position) : Boolean{
 
-        ChessTools.isExistChessman(
+        ChessLogic.isExistChessman(
                 queryChessboardInfo(),chessPosition)?.let { chessman->
             if (chessman.chessType == turnFlag) {
                 pickedChessman = chessman
@@ -99,7 +99,7 @@ object ChessHelper {
                 && pickedChessman.chessboardRule(queryChessboardInfo(),nextPosition)) {
 
                 //删掉落点处棋子
-                ChessTools.isExistChessman(queryChessboardInfo(),nextPosition)?.let { removeChessman->
+                ChessLogic.isExistChessman(queryChessboardInfo(),nextPosition)?.let { removeChessman->
                     queryChessboardInfo()[removeChessman.position.row][removeChessman.position.column] = null
                     observer?.onRemoveChessman(removeChessman)
                     if (removeChessman is KingChessman) return@moveChessman MoveResult.GameOver

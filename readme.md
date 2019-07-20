@@ -1,5 +1,8 @@
-# 游戏开发之象棋  
-[**象棋(Chinese Chess)**](https://baike.baidu.com/item/%E8%B1%A1%E6%A3%8B/30665)
+# PiMesuem-Game-ChineseChess 
+
+[![License](https://img.shields.io/badge/license-Apache%202-green.svg)](https://www.apache.org/licenses/LICENSE-2.0)
+
+[**Chinese Chess**](https://baike.baidu.com/item/%E4%B8%AD%E5%9B%BD%E8%B1%A1%E6%A3%8B/278314?fr=aladdin)
 
 ## 象棋的数学模型
 ### **棋盘:**    

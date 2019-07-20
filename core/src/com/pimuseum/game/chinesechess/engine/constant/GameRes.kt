@@ -1,6 +1,79 @@
 package com.pimuseum.game.chinesechess.engine.constant
 
+import com.pimuseum.game.chinesechess.model.chessman.*
+import com.pimuseum.game.chinesechess.model.companion.ChessType
+
 object GameRes {
+
+    /**
+     * 根据具体棋子 Class 和 Type 查询 Normal 状态下加载的资源路径
+     */
+    fun queryResPathByNormalChessman(chessman : Chessman?) : String? {
+
+        chessman?.let {
+
+            return if (chessman.chessType == ChessType.Red) { //Red Chessman
+
+                when(chessman.javaClass) {
+                    JuChessman::class.java -> GameRes.Actor_Ju_Red_Normal
+                    MaChessman::class.java -> GameRes.Actor_Ma_Red_Normal
+                    XiangChessman::class.java -> GameRes.Actor_Xiang_Red_Normal
+                    ShiChessman::class.java -> GameRes.Actor_Shi_Red_Normal
+                    KingChessman::class.java -> GameRes.Actor_King_Red_Normal
+                    PaoChessman::class.java -> GameRes.Actor_Pao_Red_Normal
+                    PawnChessman::class.java -> GameRes.Actor_Pawn_Red_Normal
+                    else -> null
+                }
+            } else {
+                when(chessman.javaClass) { //Black Chessman
+                    JuChessman::class.java -> GameRes.Actor_Ju_Black_Normal
+                    MaChessman::class.java -> GameRes.Actor_Ma_Black_Normal
+                    XiangChessman::class.java -> GameRes.Actor_Xiang_Black_Normal
+                    ShiChessman::class.java -> GameRes.Actor_Shi_Black_Normal
+                    KingChessman::class.java -> GameRes.Actor_King_Black_Normal
+                    PaoChessman::class.java -> GameRes.Actor_Pao_Black_Normal
+                    PawnChessman::class.java -> GameRes.Actor_Pawn_Black_Normal
+                    else -> null
+                }
+            }
+        }
+
+        return null
+    }
+
+    /**
+     * 根据具体棋子 Class 和 Type 查询 Picked 状态下加载的资源路径
+     */
+    fun queryResPathByPickedChessman(chessman : Chessman?) : String? {
+
+        chessman?.let {
+            return if (chessman.chessType == ChessType.Red) { //Red Chessman
+
+                when(chessman.javaClass) {
+                    JuChessman::class.java -> GameRes.Actor_Ju_Red_Picked
+                    MaChessman::class.java -> GameRes.Actor_Ma_Red_Picked
+                    XiangChessman::class.java -> GameRes.Actor_Xiang_Red_Picked
+                    ShiChessman::class.java -> GameRes.Actor_Shi_Red_Picked
+                    KingChessman::class.java -> GameRes.Actor_King_Red_Picked
+                    PaoChessman::class.java -> GameRes.Actor_Pao_Red_Picked
+                    PawnChessman::class.java -> GameRes.Actor_Pawn_Red_Picked
+                    else -> null
+                }
+            } else {
+                when(chessman.javaClass) { //Black Chessman
+                    JuChessman::class.java -> GameRes.Actor_Ju_Black_Picked
+                    MaChessman::class.java -> GameRes.Actor_Ma_Black_Picked
+                    XiangChessman::class.java -> GameRes.Actor_Xiang_Black_Picked
+                    ShiChessman::class.java -> GameRes.Actor_Shi_Black_Picked
+                    KingChessman::class.java -> GameRes.Actor_King_Black_Picked
+                    PaoChessman::class.java -> GameRes.Actor_Pao_Black_Picked
+                    PawnChessman::class.java -> GameRes.Actor_Pawn_Black_Picked
+                    else -> null
+                }
+            }
+        }
+        return null
+    }
 
     /*********************************        constant resource      ********************************/
 
@@ -53,5 +126,6 @@ object GameRes {
     const val Actor_King_Black_Picked = "actor/chessman_bkp.png"
     const val Actor_Pao_Black_Picked = "actor/chessman_bpp.png"
     const val Actor_Pawn_Black_Picked = "actor/chessman_bpawnp.png"
+
 }
 

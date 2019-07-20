@@ -2,7 +2,7 @@ package com.pimuseum.game.chinesechess.model.chessman
 
 import com.pimuseum.game.chinesechess.model.companion.ChessType
 import com.pimuseum.game.chinesechess.model.companion.Position
-import com.pimuseum.game.chinesechess.model.tools.ChessTools
+import com.pimuseum.game.chinesechess.model.logic.ChessLogic
 
 /**
  * Desc : PawnChessman(兵,卒)
@@ -35,7 +35,7 @@ class PawnChessman(chessType: ChessType, position: Position) : Chessman(chessTyp
 
     override fun chessboardRule(chessboardInfo: Array<Array<Chessman?>>, nextPosition: Position): Boolean {
 
-        ChessTools.isExistChessman(chessboardInfo,nextPosition)?.let { chessman->
+        ChessLogic.isExistChessman(chessboardInfo,nextPosition)?.let { chessman->
             if (chessman.chessType == this@PawnChessman.chessType) return false//同色棋子不能被吃
         }
         return true

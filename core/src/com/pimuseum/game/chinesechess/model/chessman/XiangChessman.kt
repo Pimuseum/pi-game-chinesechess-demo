@@ -2,7 +2,7 @@ package com.pimuseum.game.chinesechess.model.chessman
 
 import com.pimuseum.game.chinesechess.model.companion.ChessType
 import com.pimuseum.game.chinesechess.model.companion.Position
-import com.pimuseum.game.chinesechess.model.tools.ChessTools
+import com.pimuseum.game.chinesechess.model.logic.ChessLogic
 
 /**
  * Desc : XiangChessman(相，象)
@@ -29,7 +29,7 @@ class XiangChessman(chessType: ChessType, position: Position) : Chessman(chessTy
 
     override fun chessboardRule(chessboardInfo: Array<Array<Chessman?>>, nextPosition: Position): Boolean {
 
-        ChessTools.isExistChessman(chessboardInfo,nextPosition)?.let { chessman->
+        ChessLogic.isExistChessman(chessboardInfo,nextPosition)?.let { chessman->
             if (chessman.chessType == this@XiangChessman.chessType) return false//同色棋子不能被吃
         }
 
@@ -37,7 +37,7 @@ class XiangChessman(chessType: ChessType, position: Position) : Chessman(chessTy
         val centerColumn = (this@XiangChessman.position.column + nextPosition.column)/2
         val centerRow = (this@XiangChessman.position.row + nextPosition.row)/2
 
-        ChessTools.isExistChessman(chessboardInfo, Position(centerRow, centerColumn)
+        ChessLogic.isExistChessman(chessboardInfo, Position(centerRow, centerColumn)
         )?.let {
             return false
         }

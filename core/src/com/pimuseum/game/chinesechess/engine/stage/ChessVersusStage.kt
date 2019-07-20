@@ -10,7 +10,6 @@ import com.badlogic.gdx.audio.Sound
 import com.badlogic.gdx.graphics.Texture
 import com.badlogic.gdx.math.Vector2
 import com.pimuseum.game.chinesechess.model.ChessHelper
-import com.pimuseum.game.chinesechess.model.tools.ChessTools
 import com.pimuseum.game.chinesechess.engine.actor.ChessBoardActor
 import com.pimuseum.game.chinesechess.engine.actor.ChessmanActor
 import com.pimuseum.game.chinesechess.engine.constant.GameMode
@@ -193,7 +192,7 @@ class ChessVersusStage(var mode : GameMode , viewport: Viewport) : Stage(viewpor
                             desActor.isVisible = false
 
                             EngineTools.replaceActorTexture(chessmanActors[touchPosition.row][touchPosition.column],
-                                    ChessTools.queryResPathByPickedChessman(chessman))
+                                    GameRes.queryResPathByPickedChessman(chessman))
 
                             chessmanActors[touchPosition.row][touchPosition.column]?.setSize(chessboardUnitWidth,chessboardUnitWidth)
                         }
@@ -237,7 +236,7 @@ class ChessVersusStage(var mode : GameMode , viewport: Viewport) : Stage(viewpor
 
         //actor 纹理改变成 freedom 状态,drop 棋子
         EngineTools.replaceActorTexture(chessmanActors[touchPosition.row][touchPosition.column],
-                ChessTools.queryResPathByNormalChessman(chessmanActors[touchPosition.row][touchPosition.column]?.chessman))
+                GameRes.queryResPathByNormalChessman(chessmanActors[touchPosition.row][touchPosition.column]?.chessman))
 
         chessmanActors[touchPosition.row][touchPosition.column]?.setSize(chessmanSize,chessmanSize)
         chessmanActors[touchPosition.row][touchPosition.column]?.
@@ -266,7 +265,7 @@ class ChessVersusStage(var mode : GameMode , viewport: Viewport) : Stage(viewpor
 
         //actor 纹理改变成 freedom 状态,drop 棋子
         EngineTools.replaceActorTexture(chessmanActors[touchPosition.row][touchPosition.column],
-                ChessTools.queryResPathByNormalChessman(chessmanActors[touchPosition.row][touchPosition.column]?.chessman))
+                GameRes.queryResPathByNormalChessman(chessmanActors[touchPosition.row][touchPosition.column]?.chessman))
 
         chessmanActors[touchPosition.row][touchPosition.column]?.setSize(chessmanSize,chessmanSize)
 
@@ -287,7 +286,7 @@ class ChessVersusStage(var mode : GameMode , viewport: Viewport) : Stage(viewpor
                 ChessHelper.queryChessboardInfo()[row][column]?.let { chessman ->
 
                     //create chessman actor
-                    ChessTools.queryResPathByNormalChessman(chessman)?.let { resPath->
+                    GameRes.queryResPathByNormalChessman(chessman)?.let { resPath->
 
                         val chessmanTexture = Texture(Gdx.files.internal(resPath))
                         val chessmanActor = ChessmanActor(TextureRegion(chessmanTexture),chessman)
@@ -300,7 +299,6 @@ class ChessVersusStage(var mode : GameMode , viewport: Viewport) : Stage(viewpor
 
                         addActor(chessmanActor)
                         chessmanActors[chessman.position.row][chessman.position.column] = chessmanActor
-
 
 //                        Gdx.app.log(LogTag.ChessLog, "${chessman.javaClass.simpleName}: ${chessman.position.row} *" +
 //                                " ${chessman.position.column}")
