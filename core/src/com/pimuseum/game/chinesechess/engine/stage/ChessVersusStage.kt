@@ -161,63 +161,46 @@ class ChessVersusStage(var mode : GameMode , viewport: Viewport) : Stage(viewpor
 
     /**
      * 触摸棋盘以后的游戏逻辑步骤：
-     *
      * 1.先查询象棋的棋子处于被选择状态还是自由状态
-     *
      * 2.根据 状态操作 freedom:选取  pick:下棋
      */
     private lateinit var touchPosition : Position //当前触摸点转换为的当前象棋坐标
 
     private fun playChess(stageVector2: Vector2) {
-
         //触摸点转换为象棋坐标
         EngineTools.stageCovert2Position(stageVector2,originLocationX,originLocationY,chessboardUnitWidth,chessboardUnitHeight)?.let { position->
-
             touchPosition = position
-
             Gdx.app.log(LogTag.OPLog, "operationStatus : ${ChessHelper.operationStatus}")
-
             if(ChessHelper.operationStatus == OperationStatus.ChessFreedom) {// 棋子自由状态
-
                     //触摸点下是否存在棋子
                     ChessHelper.isExistChessmanByPosition(touchPosition)?.let { chessman ->
-
                         //pick 棋子 ，actor 纹理改变成 picked 状态
                         if (ChessHelper.pickChessman(touchPosition)) {
-
                             pickSound.play()
-
                             //隐藏上一步下棋轨迹
                             oriActor.isVisible = false
                             desActor.isVisible = false
-
                             EngineTools.replaceActorTexture(chessmanActors[touchPosition.row][touchPosition.column],
                                     GameRes.queryResPathByPickedChessman(chessman))
-
                             chessmanActors[touchPosition.row][touchPosition.column]?.setSize(chessboardUnitWidth,chessboardUnitWidth)
                         }
                     }
-
             } else { // 棋子已选择状态，落下下棋
-
                 val result = ChessHelper.moveChessman(touchPosition)
                 Gdx.app.log(LogTag.OPLog, result.name)
             }
         }
     }
 
-    /********************************     Chessboard    Operation    Observer     ***************************************/
+    /*************************************     Chessboard    Operation    Observer     ********************************************/
 
     override fun onRemoveChessman(chessman: Chessman) { //判断是否是King，如果是则游戏结束
-
         if (chessman is GeneralChessman) {
-
             if (chessman.chessType == ChessType.Red) {
                 Gdx.app.log(LogTag.OPLog, "Black Win")
             } else {
                 Gdx.app.log(LogTag.OPLog, "Red Win")
             }
-
             clear()
             initActors()
         }

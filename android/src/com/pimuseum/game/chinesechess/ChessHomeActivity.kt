@@ -9,11 +9,11 @@ import android.view.View
 import android.widget.TextView
 
 /**
- * Desc : ChessEnterActivity
+ * Desc : ChessHomeActivity
  * Author : Jiervs
  * Date : 2019/5/24
  */
-class ChessEnterActivity : Activity() {
+class ChessHomeActivity : Activity() {
 
     private lateinit var soundPool: SoundPool
     private var soundId : Int = 0
