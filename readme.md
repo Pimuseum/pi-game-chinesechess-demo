@@ -1,6 +1,6 @@
 # PiMuseum-Game-ChineseChess 
 
-[![License](https://img.shields.io/badge/license-Apache%202-green.svg)](https://www.apache.org/licenses/LICENSE-2.0) [![Build](https://travis-ci.org/Pimuseum/pi-game-chinesechess-client.svg?branch=master)](https://travis-ci.org/Pimuseum/pi-game-chinesechess-client.svg?branch=master)
+[![License](https://img.shields.io/badge/license-Apache%202-green.svg)](https://www.apache.org/licenses/LICENSE-2.0) [![Build](https://travis-ci.org/Pimuseum/pi-game-chinesechess-demo.svg?branch=master)](https://travis-ci.org/Pimuseum/pi-game-chinesechess-client.svg?branch=master)
 
 [**Chinese Chess**](https://en.wikipedia.org/wiki/Xiangqi)
 
