@@ -4,6 +4,8 @@
 
 [**Chinese Chess**](https://en.wikipedia.org/wiki/Xiangqi)
 
+[**中文文档**](https://blog.csdn.net/jiervsvirgil/article/category/9325334)
+
 ## Mathematical Model of ChineseChess
 ### **ChessBoard:**    
 * The chessboard consists of **10** rows and **9** columns,the mapping mathematical model is a plane systems of coordinates,because of the existence of chess notation,form the first person perspective,facing chessboard，**columns 1 to 9** from left to right,**rows 1 to 10** from bottom to top,therefore, two-dimensional coordinate system of **XY** axis is established.
