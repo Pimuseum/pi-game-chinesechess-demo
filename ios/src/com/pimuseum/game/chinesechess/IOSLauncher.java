@@ -5,12 +5,14 @@ import org.robovm.apple.uikit.UIApplication;
 
 import com.badlogic.gdx.backends.iosrobovm.IOSApplication;
 import com.badlogic.gdx.backends.iosrobovm.IOSApplicationConfiguration;
+import com.pimuseum.game.chinesechess.engine.constant.GameMode;
+import com.pimuseum.game.chinesechess.engine.game.ChessVersusGame;
 
 public class IOSLauncher extends IOSApplication.Delegate {
     @Override
     protected IOSApplication createApplication() {
         IOSApplicationConfiguration config = new IOSApplicationConfiguration();
-        return new IOSApplication(new ChessGameMain(), config);
+        return new IOSApplication(new ChessVersusGame(GameMode.Practice), config);
     }
 
     public static void main(String[] argv) {
