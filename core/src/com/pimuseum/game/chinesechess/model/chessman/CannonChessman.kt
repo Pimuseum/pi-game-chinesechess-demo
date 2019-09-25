@@ -20,9 +20,7 @@ class CannonChessman(chessType: ChessType, position: Position) : Chessman(chessT
 
     override fun chessboardRule(chessboardInfo: Array<Array<Chessman?>>, nextPosition: Position): Boolean {
 
-        ChessLogic.isExistChessman(chessboardInfo,nextPosition)?.let { chessman->
-            if (chessman.chessType == this@CannonChessman.chessType) return false//同色棋子不能被吃
-
+        ChessLogic.isExistChessman(chessboardInfo,nextPosition)?.let {
             //落点存在对方棋子时候，需隔山打炮
             return ChessLogic.numberBetween2Positions(chessboardInfo,this@CannonChessman.position,nextPosition) == 1
         }

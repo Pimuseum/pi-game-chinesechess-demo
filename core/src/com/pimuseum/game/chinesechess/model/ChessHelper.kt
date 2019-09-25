@@ -25,7 +25,7 @@ object ChessHelper {
 
     //棋盘上的二维坐标集信息,对应的索引取值是空值或者是棋子对象
     private var chessboardInfo : Array<Array<Chessman?>>
-            = Array(RowCapacity ){Array<Chessman?>(ColumnCapacity) { null } }
+            = Array(RowCapacity ){ Array<Chessman?>(ColumnCapacity) { null } }
 
     //己方视角下操作者 Type
     var myRoleType = ChessType.Red
@@ -41,6 +41,10 @@ object ChessHelper {
 
     //棋盘操作监听
     var observer : OperateObserver? = null
+
+    //单独保存将,帅 引用
+    private var blackGeneral : GeneralChessman? = null
+    private var redGeneral : GeneralChessman? = null
 
     //获取当前棋盘坐标集信息
     fun queryChessboardInfo() : Array<Array<Chessman?>> {
@@ -94,9 +98,25 @@ object ChessHelper {
                 return@moveChessman MoveResult.DesIsSelf
             }
 
+            //检测是否将帅相照面(该规则不放在 checkOverallRules 为了减少回调和遍历，并且可以单独增加 MoveResult 情况)
+            if (pickedChessman is GeneralChessman) {
+                if (pickedChessman.chessType == ChessType.Red) {//帅
+                    blackGeneral?.position?.let {
+                        if (nextPosition.column == blackGeneral?.position?.column
+                                && ChessLogic.numberBetween2Positions(queryChessboardInfo(),it,nextPosition) == 0)
+                            return@moveChessman MoveResult.UnSupportChessRule
+                    }
+                } else {//将
+                    redGeneral?.position?.let {
+                        if (nextPosition.column == redGeneral?.position?.column
+                                && ChessLogic.numberBetween2Positions(queryChessboardInfo(),it,nextPosition) == 0)
+                            return@moveChessman MoveResult.UnSupportChessRule
+                    }
+                }
+            }
+
             //检测是否符合下棋规则,包括棋子约束和棋盘约束
-            if (pickedChessman.chessmanRule(nextPosition)
-                && pickedChessman.chessboardRule(queryChessboardInfo(),nextPosition)) {
+            if (pickedChessman.checkOverallRules(queryChessboardInfo(),nextPosition)) {
 
                 //删掉落点处棋子
                 ChessLogic.isExistChessman(queryChessboardInfo(),nextPosition)?.let { removeChessman->
@@ -148,6 +168,8 @@ object ChessHelper {
         turnFlag = ChessType.Red
 
         //清空棋盘坐标上的棋子
+        blackGeneral = null
+        redGeneral = null
         for(row in 1 until RowCapacity) {
             for (column in 1 until ColumnCapacity) {
                 chessboardInfo[row][column] = null
@@ -167,7 +189,8 @@ object ChessHelper {
         chessboardInfo[1][4] = AdvisorChessman(ChessType.Red, Position(1, 4))
         chessboardInfo[1][6] = AdvisorChessman(ChessType.Red, Position(1, 6))
         //帅
-        chessboardInfo[1][5] = GeneralChessman(ChessType.Red, Position(1, 5))
+        redGeneral = GeneralChessman(ChessType.Red, Position(1, 5))
+        chessboardInfo[1][5] = redGeneral
         //红炮
         chessboardInfo[3][2] = CannonChessman(ChessType.Red, Position(3, 2))
         chessboardInfo[3][8] = CannonChessman(ChessType.Red, Position(3, 8))
@@ -191,7 +214,9 @@ object ChessHelper {
         chessboardInfo[10][4] = AdvisorChessman(ChessType.Black, Position(10, 4))
         chessboardInfo[10][6] = AdvisorChessman(ChessType.Black, Position(10, 6))
         //将
-        chessboardInfo[10][5] = GeneralChessman(ChessType.Black, Position(10, 5))
+        blackGeneral = GeneralChessman(ChessType.Black, Position(10, 5))
+        chessboardInfo[10][5] = blackGeneral
+
         //黑炮
         chessboardInfo[8][2] = CannonChessman(ChessType.Black, Position(8, 2))
         chessboardInfo[8][8] = CannonChessman(ChessType.Black, Position(8, 8))

@@ -22,10 +22,6 @@ class ChariotChessman(chessType: ChessType, position: Position) : Chessman(chess
 
     override fun chessboardRule(chessboardInfo: Array<Array<Chessman?>>, nextPosition: Position): Boolean {
 
-        ChessLogic.isExistChessman(chessboardInfo,nextPosition)?.let { chessman->
-            if (chessman.chessType == this@ChariotChessman.chessType) return false//同色棋子不能被吃
-        }
-
         if (ChessLogic.numberBetween2Positions(chessboardInfo,this@ChariotChessman.position,nextPosition) > 0) {
             //两棋子之间有其他棋子则不符合 车的走法
             return false

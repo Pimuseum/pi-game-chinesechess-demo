@@ -3,6 +3,7 @@ package com.pimuseum.game.chinesechess.model.chessman
 import com.pimuseum.game.chinesechess.model.companion.ChessType
 import com.pimuseum.game.chinesechess.model.companion.Position
 import com.pimuseum.game.chinesechess.model.logic.ChessLogic
+import kotlin.math.abs
 
 /**
  * Desc : GeneralChessman(帅,将)
@@ -14,7 +15,7 @@ class GeneralChessman(chessType: ChessType, position: Position) : Chessman(chess
     override fun chessmanRule(nextPosition: Position): Boolean {
 
         //帅,将移动距离为1
-       if ((Math.abs(nextPosition.column - position.column) + Math.abs(nextPosition.row - position.row)) != 1) return false
+       if ((abs(nextPosition.column - position.column) + abs(nextPosition.row - position.row)) != 1) return false
 
         return if (chessType == ChessType.Red) {//红棋子
             //帅,将只能在九宫格内移动
@@ -27,10 +28,6 @@ class GeneralChessman(chessType: ChessType, position: Position) : Chessman(chess
     }
 
     override fun chessboardRule(chessboardInfo: Array<Array<Chessman?>>, nextPosition: Position): Boolean {
-
-        ChessLogic.isExistChessman(chessboardInfo,nextPosition)?.let { chessman->
-            if (chessman.chessType == this@GeneralChessman.chessType) return false//同色棋子不能被吃
-        }
         return true
     }
 
