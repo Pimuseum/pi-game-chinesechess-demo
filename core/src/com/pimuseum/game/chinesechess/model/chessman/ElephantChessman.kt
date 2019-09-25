@@ -29,16 +29,11 @@ class ElephantChessman(chessType: ChessType, position: Position) : Chessman(ches
 
     override fun chessboardRule(chessboardInfo: Array<Array<Chessman?>>, nextPosition: Position): Boolean {
 
-        ChessLogic.isExistChessman(chessboardInfo,nextPosition)?.let { chessman->
-            if (chessman.chessType == this@ElephantChessman.chessType) return false//同色棋子不能被吃
-        }
-
         //计算田心坐标,这里行列坐标差值都是2，棋子约束决定，所以计算出来的中心坐标不存在小数
         val centerColumn = (this@ElephantChessman.position.column + nextPosition.column)/2
         val centerRow = (this@ElephantChessman.position.row + nextPosition.row)/2
 
-        ChessLogic.isExistChessman(chessboardInfo, Position(centerRow, centerColumn)
-        )?.let {
+        ChessLogic.isExistChessman(chessboardInfo, Position(centerRow, centerColumn))?.let {
             return false
         }
         return true

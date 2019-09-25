@@ -41,8 +41,7 @@
             android:textStyle="bold"
             android:background="@drawable/btn_bg"
             android:gravity="center"
-            android:layout_marginTop="20dp"
-            android:visibility="invisible"/>
+            android:layout_marginTop="20dp"/>
 
         <TextView
             android:id="@+id/tvInternetVersus"
@@ -54,8 +53,7 @@
             android:textStyle="bold"
             android:background="@drawable/btn_bg"
             android:gravity="center"
-            android:layout_marginTop="20dp"
-            android:visibility="invisible"/>
+            android:layout_marginTop="20dp"/>
 
     </LinearLayout>
 
